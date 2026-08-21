@@ -1,0 +1,4 @@
+interface:
+  display_name: "用“7+1”规范映射业务语义"
+  short_description: "用于用“7+1”规范映射业务语义，输出可验证结果"
+  default_prompt: "请使用 $seven-plus-one-semantic-mapping，基于我提供的业务材料完成用“7+1”规范映射业务语义，并明确证据、边界和下一步。"

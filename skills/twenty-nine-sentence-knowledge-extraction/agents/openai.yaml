@@ -1,0 +1,4 @@
+interface:
+  display_name: "用“29句话”提取业务知识"
+  short_description: "用于用“29句话”提取业务知识，输出可验证结果"
+  default_prompt: "请使用 $twenty-nine-sentence-knowledge-extraction，基于我提供的业务材料完成用“29句话”提取业务知识，并明确证据、边界和下一步。"

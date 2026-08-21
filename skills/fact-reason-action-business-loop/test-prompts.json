@@ -1,0 +1,51 @@
+{
+  "skill": "fact-reason-action-business-loop",
+  "version": "0.1.0",
+  "darwin_compatible": true,
+  "test_cases": [
+    {
+      "id": "should-trigger-01",
+      "type": "should_trigger",
+      "prompt": "帮我按事实事理行动拆解？请结合一个企业业务场景给我可执行结果。",
+      "expected_behavior": "应激活 fact-reason-action-business-loop，至少执行界定闭环、登记事实。",
+      "notes": "正面场景：需要把模糊业务描述转成Agent可用模型。"
+    },
+    {
+      "id": "should-trigger-02",
+      "type": "should_trigger",
+      "prompt": "我现在需要解释一个判断怎样落到系统动作，这个判断依据和动作怎么串起来？",
+      "expected_behavior": "应激活 fact-reason-action-business-loop，按Skill步骤输出判断、证据和完成标准。",
+      "notes": "正面场景：需要解释一个判断怎样落到系统动作。"
+    },
+    {
+      "id": "should-trigger-03",
+      "type": "should_trigger",
+      "prompt": "Please help with fact-reason-action and provide a concrete enterprise checklist.",
+      "expected_behavior": "应激活 fact-reason-action-business-loop，识别英文trigger并执行该方法。",
+      "notes": "英文正面场景。"
+    },
+    {
+      "id": "should-not-trigger-01",
+      "type": "should_not_trigger",
+      "prompt": "请告诉我 RDF、OWL 和 SPARQL 的英文全称，只需要简短释义。",
+      "expected_behavior": "不应激活 fact-reason-action-business-loop；这是纯信息查询。",
+      "notes": "诱饵：主题相关但任务只需事实释义。"
+    },
+    {
+      "id": "should-not-trigger-02",
+      "type": "should_not_trigger",
+      "prompt": "按7+1映射一下？请直接按那个方法给出步骤。",
+      "expected_behavior": "不应激活 fact-reason-action-business-loop，应激活 seven-plus-one-semantic-mapping。",
+      "notes": "跨Skill混淆诱饵：目标为 seven-plus-one-semantic-mapping。"
+    },
+    {
+      "id": "edge-01",
+      "type": "edge_case",
+      "prompt": "当前情况是：业务目标和触发事件尚未明确。我还能直接用这个方法吗？",
+      "expected_behavior": "不得直接执行 fact-reason-action-business-loop 的完整流程；可激活该Skill做边界判定，也可选择更合适的兄弟Skill或none，但必须指出阻断条件和下一步。",
+      "notes": "边界：业务目标和触发事件尚未明确。"
+    }
+  ],
+  "minimum_pass_rate": 0.8,
+  "notes": "3条should_trigger、2条should_not_trigger、1条edge_case；诱饵容错为0，含1条兄弟Skill混淆测试。"
+}

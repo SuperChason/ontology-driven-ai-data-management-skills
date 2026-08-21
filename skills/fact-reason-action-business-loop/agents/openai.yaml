@@ -1,0 +1,4 @@
+interface:
+  display_name: "“事实—事理—行动”业务闭环建模"
+  short_description: "用于“事实—事理—行动”业务闭环建模，输出可验证结果"
+  default_prompt: "请使用 $fact-reason-action-business-loop，基于我提供的业务材料完成“事实—事理—行动”业务闭环建模，并明确证据、边界和下一步。"

@@ -1,0 +1,4 @@
+interface:
+  display_name: "意图驱动的最小本体检索与加载"
+  short_description: "用于意图驱动的最小本体检索与加载，输出可验证结果"
+  default_prompt: "请使用 $intent-driven-minimal-ontology-loading，基于我提供的业务材料完成意图驱动的最小本体检索与加载，并明确证据、边界和下一步。"

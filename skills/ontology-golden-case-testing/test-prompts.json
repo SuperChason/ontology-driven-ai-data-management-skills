@@ -1,0 +1,51 @@
+{
+  "skill": "ontology-golden-case-testing",
+  "version": "0.1.0",
+  "darwin_compatible": true,
+  "test_cases": [
+    {
+      "id": "should-trigger-01",
+      "type": "should_trigger",
+      "prompt": "帮我设计本体测试用例？请结合一个企业业务场景给我可执行结果。",
+      "expected_behavior": "应激活 ontology-golden-case-testing，至少执行确定验收范围、制作黄金用例。",
+      "notes": "正面场景：需要验收本体能否回答真实业务问题。"
+    },
+    {
+      "id": "should-trigger-02",
+      "type": "should_trigger",
+      "prompt": "我现在本体规则或版本变化后要做回归，怎么做黄金问题集？",
+      "expected_behavior": "应激活 ontology-golden-case-testing，按Skill步骤输出判断、证据和完成标准。",
+      "notes": "正面场景：本体规则或版本变化后要做回归。"
+    },
+    {
+      "id": "should-trigger-03",
+      "type": "should_trigger",
+      "prompt": "Please help with golden cases and provide a concrete enterprise checklist.",
+      "expected_behavior": "应激活 ontology-golden-case-testing，识别英文trigger并执行该方法。",
+      "notes": "英文正面场景。"
+    },
+    {
+      "id": "should-not-trigger-01",
+      "type": "should_not_trigger",
+      "prompt": "请告诉我 RDF、OWL 和 SPARQL 的英文全称，只需要简短释义。",
+      "expected_behavior": "不应激活 ontology-golden-case-testing；这是纯信息查询。",
+      "notes": "诱饵：主题相关但任务只需事实释义。"
+    },
+    {
+      "id": "should-not-trigger-02",
+      "type": "should_not_trigger",
+      "prompt": "帮我做本体质量审查？请直接按那个方法给出步骤。",
+      "expected_behavior": "不应激活 ontology-golden-case-testing，应激活 ontology-model-multilayer-quality-gate。",
+      "notes": "跨Skill混淆诱饵：目标为 ontology-model-multilayer-quality-gate。"
+    },
+    {
+      "id": "edge-01",
+      "type": "edge_case",
+      "prompt": "当前情况是：没有稳定业务预期或专家无法确认答案。我还能直接用这个方法吗？",
+      "expected_behavior": "不得直接执行 ontology-golden-case-testing 的完整流程；可激活该Skill做边界判定，也可选择更合适的兄弟Skill或none，但必须指出阻断条件和下一步。",
+      "notes": "边界：没有稳定业务预期或专家无法确认答案。"
+    }
+  ],
+  "minimum_pass_rate": 0.8,
+  "notes": "3条should_trigger、2条should_not_trigger、1条edge_case；诱饵容错为0，含1条兄弟Skill混淆测试。"
+}

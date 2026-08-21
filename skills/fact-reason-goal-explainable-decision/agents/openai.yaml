@@ -1,0 +1,4 @@
+interface:
+  display_name: "“事实—事理—目标”可解释决策"
+  short_description: "用于“事实—事理—目标”可解释决策，输出可验证结果"
+  default_prompt: "请使用 $fact-reason-goal-explainable-decision，基于我提供的业务材料完成“事实—事理—目标”可解释决策，并明确证据、边界和下一步。"

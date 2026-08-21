@@ -1,0 +1,4 @@
+interface:
+  display_name: "面向训练与推理的 AI 数据资产治理"
+  short_description: "用于面向训练与推理的 AI 数据资产治理，输出可验证结果"
+  default_prompt: "请使用 $ai-training-inference-data-asset-governance，基于我提供的业务材料完成面向训练与推理的 AI 数据资产治理，并明确证据、边界和下一步。"

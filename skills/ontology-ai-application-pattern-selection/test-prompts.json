@@ -1,0 +1,51 @@
+{
+  "skill": "ontology-ai-application-pattern-selection",
+  "version": "0.1.0",
+  "darwin_compatible": true,
+  "test_cases": [
+    {
+      "id": "should-trigger-01",
+      "type": "should_trigger",
+      "prompt": "这个场景属于哪种应用模式？请结合一个企业业务场景给我可执行结果。",
+      "expected_behavior": "应激活 ontology-ai-application-pattern-selection，至少执行确认适配结论、识别主痛点。",
+      "notes": "正面场景：场景已确认适合本体，需要选择应用架构。"
+    },
+    {
+      "id": "should-trigger-02",
+      "type": "should_trigger",
+      "prompt": "我现在问答、审核、协同、决策和PDCA方案混在一起，六类模式怎么选？",
+      "expected_behavior": "应激活 ontology-ai-application-pattern-selection，按Skill步骤输出判断、证据和完成标准。",
+      "notes": "正面场景：问答、审核、协同、决策和PDCA方案混在一起。"
+    },
+    {
+      "id": "should-trigger-03",
+      "type": "should_trigger",
+      "prompt": "Please help with application pattern and provide a concrete enterprise checklist.",
+      "expected_behavior": "应激活 ontology-ai-application-pattern-selection，识别英文trigger并执行该方法。",
+      "notes": "英文正面场景。"
+    },
+    {
+      "id": "should-not-trigger-01",
+      "type": "should_not_trigger",
+      "prompt": "请告诉我 RDF、OWL 和 SPARQL 的英文全称，只需要简短释义。",
+      "expected_behavior": "不应激活 ontology-ai-application-pattern-selection；这是纯信息查询。",
+      "notes": "诱饵：主题相关但任务只需事实释义。"
+    },
+    {
+      "id": "should-not-trigger-02",
+      "type": "should_not_trigger",
+      "prompt": "这个场景适合做本体吗？请直接按那个方法给出步骤。",
+      "expected_behavior": "不应激活 ontology-ai-application-pattern-selection，应激活 ontology-ai-scenario-fit-and-spike。",
+      "notes": "跨Skill混淆诱饵：目标为 ontology-ai-scenario-fit-and-spike。"
+    },
+    {
+      "id": "edge-01",
+      "type": "edge_case",
+      "prompt": "当前情况是：纯信息问答可由普通检索满足。我还能直接用这个方法吗？",
+      "expected_behavior": "不得直接执行 ontology-ai-application-pattern-selection 的完整流程；可激活该Skill做边界判定，也可选择更合适的兄弟Skill或none，但必须指出阻断条件和下一步。",
+      "notes": "边界：纯信息问答可由普通检索满足。"
+    }
+  ],
+  "minimum_pass_rate": 0.8,
+  "notes": "3条should_trigger、2条should_not_trigger、1条edge_case；诱饵容错为0，含1条兄弟Skill混淆测试。"
+}

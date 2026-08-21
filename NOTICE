@@ -1,0 +1,22 @@
+Attribution and content boundary
+================================
+
+This repository was inspired by the methods discussed in the Chinese book:
+
+《本体驱动的 AI 数据管理》
+编写组著，马运、田璞领衔撰写
+机械工业出版社
+
+The book, its text, figures, page images, cases, and other original expression
+remain the property of their respective authors and publisher.
+
+This repository contains independently written Agent Skill instructions,
+tests, examples, and maintenance scripts. The public release intentionally
+excludes the source PDF, page images, verbatim book excerpts, page-level
+citations, and reproduced case narratives.
+
+The MIT License applies only to the original material contained in this
+repository. It does not grant rights to the book or any third-party material.
+
+If you are a rights holder and believe any repository content needs review,
+please open an issue with the relevant file and passage.

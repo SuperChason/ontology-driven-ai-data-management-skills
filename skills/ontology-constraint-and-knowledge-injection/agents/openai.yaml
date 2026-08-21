@@ -1,0 +1,4 @@
+interface:
+  display_name: "本体约束与知识注入策略选择"
+  short_description: "用于本体约束与知识注入策略选择，输出可验证结果"
+  default_prompt: "请使用 $ontology-constraint-and-knowledge-injection，基于我提供的业务材料完成本体约束与知识注入策略选择，并明确证据、边界和下一步。"

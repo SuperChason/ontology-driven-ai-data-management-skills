@@ -1,0 +1,4 @@
+interface:
+  display_name: "本体“黄金用例—测试矩阵—结果回溯”验收"
+  short_description: "用于本体“黄金用例—测试矩阵—结果回溯”验收，输出可验证结果"
+  default_prompt: "请使用 $ontology-golden-case-testing，基于我提供的业务材料完成本体“黄金用例—测试矩阵—结果回溯”验收，并明确证据、边界和下一步。"
