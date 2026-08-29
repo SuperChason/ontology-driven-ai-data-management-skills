@@ -3,17 +3,8 @@ name: ontology-model-multilayer-quality-gate
 description: |
   用于大模型生成了本体，需要判断能否使用、准备评审本体模型质量和生产准入，用户出现“帮我做本体质量审查”“双模型怎么校验”或 ontology quality gate, dual-model audit, semantic review 等信号时调用。不适用于把同一个模型的自我反思当作独立审核。
 metadata:
-  tags:
-    - quality-gate
-    - clarity
-    - logic
-    - completeness
-    - expert-review
-    - enterprise-ai
-    - ontology-driven
-  related_skills:
-    - slug: twenty-nine-sentence-knowledge-extraction
-      relation: depends-on
+  tags: "quality-gate, clarity, logic, completeness, expert-review, enterprise-ai, ontology-driven"
+  related-skills: "twenty-nine-sentence-knowledge-extraction:depends-on"
 ---
 
 # AI 本体建模的多层质量门

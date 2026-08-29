@@ -3,17 +3,8 @@ name: intent-driven-minimal-ontology-loading
 description: |
   用于Agent上下文过长或本体加载过多、同一问法可能对应不同业务意图，用户出现“只加载当前需要的本体”“这个意图该路由到哪个子本体”或 minimal ontology, intent routing, hybrid retrieval 等信号时调用。不适用于意图尚未澄清却直接静默路由。
 metadata:
-  tags:
-    - minimal-ontology
-    - hybrid-retrieval
-    - graph
-    - vector
-    - progressive-disclosure
-    - enterprise-ai
-    - ontology-driven
-  related_skills:
-    - slug: fact-reason-action-business-loop
-      relation: depends-on
+  tags: "minimal-ontology, hybrid-retrieval, graph, vector, progressive-disclosure, enterprise-ai, ontology-driven"
+  related-skills: "fact-reason-action-business-loop:depends-on"
 ---
 
 # 意图驱动的最小本体检索与加载

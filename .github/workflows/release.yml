@@ -1,0 +1,35 @@
+name: Publish release packages
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check tag and version
+        run: |
+          test "v$(tr -d '\n' < VERSION)" = "${GITHUB_REF_NAME}"
+      - name: Validate skills
+        run: python3 scripts/validate_skills.py
+      - name: Build packages
+        run: python3 scripts/build_packages.py
+      - name: Validate packages
+        run: python3 scripts/validate_packages.py
+      - name: Create GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "${GITHUB_REF_NAME}" \
+            dist/ontology-skills-codex-"${GITHUB_REF_NAME}".zip \
+            dist/ontology-skills-claude-code-"${GITHUB_REF_NAME}".zip \
+            dist/ontology-skills-workbuddy-"${GITHUB_REF_NAME}".zip \
+            dist/SHA256SUMS.txt \
+            --title "${GITHUB_REF_NAME} 三平台兼容版" \
+            --generate-notes

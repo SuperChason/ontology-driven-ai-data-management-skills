@@ -3,19 +3,8 @@ name: point-line-plane-ontology-scaling
 description: |
   用于首个本体场景验证成功，准备扩大范围、多个局部本体开始重复或冲突，用户出现“怎么从点扩到线和面”“这个本体怎么复用到其他场景”或 point-line-plane, ontology scaling, federated ontology 等信号时调用。不适用于首个场景尚未形成价值闭环。
 metadata:
-  tags:
-    - point-line-surface
-    - iterative
-    - scaling
-    - domain-integration
-    - federation
-    - enterprise-ai
-    - ontology-driven
-  related_skills:
-    - slug: ontology-ai-scenario-fit-and-spike
-      relation: depends-on
-    - slug: five-ring-ontology-engineering-lifecycle
-      relation: composes-with
+  tags: "point-line-surface, iterative, scaling, domain-integration, federation, enterprise-ai, ontology-driven"
+  related-skills: "ontology-ai-scenario-fit-and-spike:depends-on, five-ring-ontology-engineering-lifecycle:composes-with"
 ---
 
 # 本体“点—线—面”扩展与复用

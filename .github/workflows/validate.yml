@@ -14,3 +14,17 @@ jobs:
       - uses: actions/checkout@v4
       - name: Validate skill structure and public content boundary
         run: python3 scripts/validate_skills.py
+      - name: Build platform packages
+        run: python3 scripts/build_packages.py
+      - name: Validate platform packages
+        run: python3 scripts/validate_packages.py
+      - name: Upload platform packages
+        if: github.event_name == 'push'
+        uses: actions/upload-artifact@v4
+        with:
+          name: ontology-skills-${{ github.sha }}
+          path: |
+            dist/*.zip
+            dist/SHA256SUMS.txt
+          if-no-files-found: error
+          retention-days: 14

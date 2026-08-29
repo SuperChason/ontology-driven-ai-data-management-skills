@@ -3,21 +3,8 @@ name: ontology-runtime-service-and-version-operations
 description: |
   用于本体已建成，需要以服务方式供多个Agent调用、业务规则存在多版本并行和灰度发布，用户出现“怎么做本体即服务”“本体版本如何灰度和回滚”或 ontology as a service, semantic versioning, runtime governance 等信号时调用。不适用于本体仍处于草稿或没有通过质量与用例验收。
 metadata:
-  tags:
-    - ontology-as-a-service
-    - runtime
-    - versioning
-    - access-control
-    - sub-ontology
-    - enterprise-ai
-    - ontology-driven
-  related_skills:
-    - slug: seven-plus-one-semantic-mapping
-      relation: depends-on
-    - slug: intent-driven-minimal-ontology-loading
-      relation: composes-with
-    - slug: action-contract-execution-feedback-loop
-      relation: composes-with
+  tags: "ontology-as-a-service, runtime, versioning, access-control, sub-ontology, enterprise-ai, ontology-driven"
+  related-skills: "seven-plus-one-semantic-mapping:depends-on, intent-driven-minimal-ontology-loading:composes-with, action-contract-execution-feedback-loop:composes-with"
 ---
 
 # 本体运行时服务与版本运营

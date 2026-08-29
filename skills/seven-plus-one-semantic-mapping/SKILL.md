@@ -3,17 +3,8 @@ name: seven-plus-one-semantic-mapping
 description: |
   用于需要把业务描述映射为本体语义、要检查Agent知识、规则、权限和动作是否完整，用户出现“按7+1映射一下”“这个场景缺哪些语义”或 7+1 semantic mapping, ontology schema, action semantics 等信号时调用。不适用于输入知识仍处于自由讨论、没有来源和责任人。
 metadata:
-  tags:
-    - semantic-framework
-    - W3C
-    - reasoning-model
-    - permission
-    - evaluation
-    - enterprise-ai
-    - ontology-driven
-  related_skills:
-    - slug: fact-reason-action-business-loop
-      relation: composes-with
+  tags: "semantic-framework, W3C, reasoning-model, permission, evaluation, enterprise-ai, ontology-driven"
+  related-skills: "fact-reason-action-business-loop:composes-with"
 ---
 
 # 用“7+1”规范映射业务语义

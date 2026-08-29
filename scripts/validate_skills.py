@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import json
 import re
+import subprocess
 import sys
 from pathlib import Path
 
@@ -27,6 +28,44 @@ def frontmatter(text: str) -> str:
 def scalar(field: str, yaml_text: str) -> str | None:
     match = re.search(rf"(?m)^{re.escape(field)}:\s*([^|>].*)$", yaml_text)
     return match.group(1).strip().strip('"\'') if match else None
+
+
+def block_scalar(field: str, yaml_text: str) -> str | None:
+    match = re.search(
+        rf"(?ms)^{re.escape(field)}:\s*[|>]\s*\n((?:  .*\n?)*)",
+        yaml_text,
+    )
+    if not match:
+        return None
+    return "\n".join(line[2:] for line in match.group(1).splitlines()).strip()
+
+
+def validate_metadata(skill_name: str, yaml_text: str) -> list[str]:
+    errors: list[str] = []
+    match = re.search(r"(?ms)^metadata:\s*\n((?:  .*\n?)*)", yaml_text)
+    if not match:
+        return errors
+    for line in match.group(1).splitlines():
+        if not re.fullmatch(r'  [a-z0-9-]+:\s*"[^"]*"', line):
+            errors.append(f"{skill_name}: metadata values must be quoted strings: {line.strip()}")
+    return errors
+
+
+def tracked_text_files() -> list[Path]:
+    result = subprocess.run(
+        ["git", "ls-files", "-z"],
+        cwd=ROOT,
+        check=True,
+        capture_output=True,
+    )
+    paths = []
+    for raw in result.stdout.decode("utf-8").split("\0"):
+        if not raw:
+            continue
+        path = ROOT / raw
+        if path.is_file() and path.suffix not in {".png", ".jpg", ".jpeg", ".gif", ".zip"}:
+            paths.append(path)
+    return paths
 
 
 def validate_skill(skill_dir: Path) -> list[str]:
@@ -55,12 +94,25 @@ def validate_skill(skill_dir: Path) -> list[str]:
     name = scalar("name", yaml_text)
     if name != skill_dir.name:
         errors.append(f"{skill_dir.name}: frontmatter name is {name!r}")
-    if "description:" not in yaml_text:
-        errors.append(f"{skill_dir.name}: missing description")
+    if not name or len(name) > 64 or not re.fullmatch(r"[a-z0-9]+(?:-[a-z0-9]+)*", name):
+        errors.append(f"{skill_dir.name}: name does not follow Agent Skills naming rules")
 
-    for related_name in re.findall(r"(?m)^\s+- slug:\s*([a-z0-9-]+)\s*$", yaml_text):
+    description = scalar("description", yaml_text) or block_scalar("description", yaml_text)
+    if not description:
+        errors.append(f"{skill_dir.name}: missing description")
+    elif len(description) > 1024:
+        errors.append(f"{skill_dir.name}: description exceeds 1024 characters")
+
+    errors.extend(validate_metadata(skill_dir.name, yaml_text))
+
+    related_value = scalar("  related-skills", yaml_text) or ""
+    for relation in filter(None, (item.strip() for item in related_value.split(","))):
+        related_name = relation.split(":", 1)[0]
         if not (SKILLS_DIR / related_name / "SKILL.md").is_file():
             errors.append(f"{skill_dir.name}: unknown related skill {related_name}")
+
+    if len(text.splitlines()) > 500:
+        errors.append(f"{skill_dir.name}: SKILL.md exceeds 500 lines")
 
     for label, pattern in FORBIDDEN_PATTERNS.items():
         if pattern.search(text):
@@ -100,12 +152,8 @@ def main() -> int:
 
     repo_text = "\n".join(
         path.read_text(encoding="utf-8", errors="replace")
-        for path in ROOT.rglob("*")
-        if path.is_file()
-        and ".git" not in path.parts
-        and "__pycache__" not in path.parts
-        and path.suffix != ".pyc"
-        and path.resolve() != Path(__file__).resolve()
+        for path in tracked_text_files()
+        if path.resolve() != Path(__file__).resolve()
     )
     for label, pattern in FORBIDDEN_PATTERNS.items():
         if pattern.search(repo_text):

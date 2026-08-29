@@ -3,19 +3,8 @@ name: five-ring-ontology-engineering-lifecycle
 description: |
   用于需要规划企业本体建设项目、已有模型原型但缺少上线和运营路径，用户出现“按五环规划实施”“本体项目需要哪些阶段和产出”或 ontology lifecycle, five-ring, production readiness 等信号时调用。不适用于仅需制作一次性概念演示。
 metadata:
-  tags:
-    - ontology-engineering
-    - lifecycle
-    - implementation
-    - platform
-    - enterprise
-    - enterprise-ai
-    - ontology-driven
-  related_skills:
-    - slug: ontology-ai-scenario-fit-and-spike
-      relation: depends-on
-    - slug: ontology-model-multilayer-quality-gate
-      relation: composes-with
+  tags: "ontology-engineering, lifecycle, implementation, platform, enterprise, enterprise-ai, ontology-driven"
+  related-skills: "ontology-ai-scenario-fit-and-spike:depends-on, ontology-model-multilayer-quality-gate:composes-with"
 ---
 
 # 本体工程“五环联动”生命周期

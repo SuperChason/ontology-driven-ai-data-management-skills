@@ -3,19 +3,8 @@ name: ai-training-inference-data-asset-governance
 description: |
   用于需要建设AI数据资产目录、训练数据、实时事实、规则和推理结果混在一起，用户出现“AI数据资产怎么分类”“训练和推理数据怎么分”或 AI data assets, training vs inference, provenance governance 等信号时调用。不适用于只需要普通数据仓库分层设计。
 metadata:
-  tags:
-    - data-assets
-    - operating-data
-    - analytics-data
-    - ai-data
-    - governance
-    - enterprise-ai
-    - ontology-driven
-  related_skills:
-    - slug: seven-plus-one-semantic-mapping
-      relation: composes-with
-    - slug: ontology-runtime-service-and-version-operations
-      relation: composes-with
+  tags: "data-assets, operating-data, analytics-data, ai-data, governance, enterprise-ai, ontology-driven"
+  related-skills: "seven-plus-one-semantic-mapping:composes-with, ontology-runtime-service-and-version-operations:composes-with"
 ---
 
 # 面向训练与推理的 AI 数据资产治理

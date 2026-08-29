@@ -3,19 +3,8 @@ name: fact-reason-goal-explainable-decision
 description: |
   用于需要解释Agent为什么得出某个业务判断、实时事实、业务规则和多个目标需要综合决策，用户出现“按事实事理目标分析”“这个决策依据是什么”或 fact-reason-goal, explainable decision, goal trade-off 等信号时调用。不适用于事实来源和任务目标均未明确。
 metadata:
-  tags:
-    - fact
-    - reasoning
-    - goal
-    - decision
-    - explainability
-    - enterprise-ai
-    - ontology-driven
-  related_skills:
-    - slug: fact-reason-action-business-loop
-      relation: depends-on
-    - slug: ontology-constraint-and-knowledge-injection
-      relation: composes-with
+  tags: "fact, reasoning, goal, decision, explainability, enterprise-ai, ontology-driven"
+  related-skills: "fact-reason-action-business-loop:depends-on, ontology-constraint-and-knowledge-injection:composes-with"
 ---
 
 # “事实—事理—目标”可解释决策

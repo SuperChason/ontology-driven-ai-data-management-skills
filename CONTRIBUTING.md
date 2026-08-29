@@ -6,9 +6,11 @@
 
 - 一个 Skill 聚焦一个明确任务。
 - `description` 写清适用场景、触发信号和排除条件。
+- `SKILL.md` 遵循开放 Agent Skills 规范；`metadata` 只使用字符串键值。
 - 执行步骤包含输入、动作、完成标准和必要的判停条件。
 - 输出中区分已确认事实、方法假设和待确认项。
 - 修改触发边界时，同步更新 `test-prompts.json` 和 `test-results.md`。
+- 平台专属内容通过构建逻辑隔离，不在核心指令中写死安装路径或平台命令。
 
 ## 内容边界
 
@@ -21,6 +23,9 @@
 
 ```bash
 python3 scripts/validate_skills.py
+python3 scripts/build_packages.py
+python3 scripts/validate_packages.py
+git diff --check
 ```
 
 Pull Request 请说明：
@@ -29,3 +34,4 @@ Pull Request 请说明：
 2. 修改了哪些 Skill。
 3. 新增或调整了哪些测试。
 4. 是否引入新的外部来源或依赖。
+5. Codex、Claude Code 和 WorkBuddy 的分发结构是否发生变化。

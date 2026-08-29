@@ -3,17 +3,8 @@ name: ontology-constraint-and-knowledge-injection
 description: |
   用于要决定本体知识写进Prompt、走RAG还是微调、规则型任务需要提高可解释性和一致性，用户出现“Prompt RAG 微调怎么选”“本体怎么注入大模型”或 knowledge injection, prompt vs RAG vs fine-tuning, ontology constraint 等信号时调用。不适用于还没有定义要加载的最小知识范围。
 metadata:
-  tags:
-    - embedding
-    - prompt
-    - fine-tuning
-    - synthetic-data
-    - decision-framework
-    - enterprise-ai
-    - ontology-driven
-  related_skills:
-    - slug: intent-driven-minimal-ontology-loading
-      relation: depends-on
+  tags: "embedding, prompt, fine-tuning, synthetic-data, decision-framework, enterprise-ai, ontology-driven"
+  related-skills: "intent-driven-minimal-ontology-loading:depends-on"
 ---
 
 # 本体约束与知识注入策略选择

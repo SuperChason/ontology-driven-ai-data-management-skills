@@ -3,19 +3,8 @@ name: ontology-golden-case-testing
 description: |
   用于需要验收本体能否回答真实业务问题、本体规则或版本变化后要做回归，用户出现“帮我设计本体测试用例”“怎么做黄金问题集”或 golden cases, ontology regression, test matrix 等信号时调用。不适用于只有形式化语法错误，需要先走模型质量门。
 metadata:
-  tags:
-    - testing
-    - golden-cases
-    - test-matrix
-    - regression
-    - validation
-    - enterprise-ai
-    - ontology-driven
-  related_skills:
-    - slug: ontology-model-multilayer-quality-gate
-      relation: depends-on
-    - slug: ontology-ai-scenario-fit-and-spike
-      relation: composes-with
+  tags: "testing, golden-cases, test-matrix, regression, validation, enterprise-ai, ontology-driven"
+  related-skills: "ontology-model-multilayer-quality-gate:depends-on, ontology-ai-scenario-fit-and-spike:composes-with"
 ---
 
 # 本体“黄金用例—测试矩阵—结果回溯”验收

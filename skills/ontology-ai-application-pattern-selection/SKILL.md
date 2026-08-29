@@ -3,19 +3,8 @@ name: ontology-ai-application-pattern-selection
 description: |
   用于场景已确认适合本体，需要选择应用架构、问答、审核、协同、决策和PDCA方案混在一起，用户出现“这个场景属于哪种应用模式”“六类模式怎么选”或 application pattern, ontology AI patterns, workflow vs PDCA 等信号时调用。不适用于还没有证明场景需要本体。
 metadata:
-  tags:
-    - application-patterns
-    - workflow
-    - autonomous-operations
-    - decision
-    - PDCA
-    - enterprise-ai
-    - ontology-driven
-  related_skills:
-    - slug: ontology-ai-scenario-fit-and-spike
-      relation: depends-on
-    - slug: risk-based-agent-action-modes
-      relation: composes-with
+  tags: "application-patterns, workflow, autonomous-operations, decision, PDCA, enterprise-ai, ontology-driven"
+  related-skills: "ontology-ai-scenario-fit-and-spike:depends-on, risk-based-agent-action-modes:composes-with"
 ---
 
 # 本体与 AI 六类应用模式选择

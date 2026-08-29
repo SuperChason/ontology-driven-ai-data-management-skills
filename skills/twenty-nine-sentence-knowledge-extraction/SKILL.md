@@ -3,17 +3,8 @@ name: twenty-nine-sentence-knowledge-extraction
 description: |
   用于要从制度和业务资料提取本体知识、专家说得很散，需要结构化访谈，用户出现“怎么访谈业务专家”“用29句话提取知识”或 knowledge elicitation, expert interview, 29 sentences 等信号时调用。不适用于资料来源不明且没有业务专家可确认。
 metadata:
-  tags:
-    - knowledge-elicitation
-    - interview
-    - 29-sentences
-    - business-expert
-    - preprocessing
-    - enterprise-ai
-    - ontology-driven
-  related_skills:
-    - slug: seven-plus-one-semantic-mapping
-      relation: depends-on
+  tags: "knowledge-elicitation, interview, 29-sentences, business-expert, preprocessing, enterprise-ai, ontology-driven"
+  related-skills: "seven-plus-one-semantic-mapping:depends-on"
 ---
 
 # 用“29句话”提取业务知识

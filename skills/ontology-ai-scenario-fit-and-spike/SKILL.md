@@ -3,15 +3,8 @@ name: ontology-ai-scenario-fit-and-spike
 description: |
   用于准备为一个企业AI场景选择本体技术路线、项目范围很大，需要确定首个小切口，用户出现“这个场景适合做本体吗”“先做哪个小切口”或 ontology fit, vertical slice, go/no-go 等信号时调用。不适用于纯信息查询或单表统计，现有查询能力即可满足。
 metadata:
-  tags:
-    - scenario-selection
-    - fit-assessment
-    - semantic-complexity
-    - compliance
-    - exclusion
-    - enterprise-ai
-    - ontology-driven
-  related_skills: []
+  tags: "scenario-selection, fit-assessment, semantic-complexity, compliance, exclusion, enterprise-ai, ontology-driven"
+  related-skills: ""
 ---
 
 # 本体增强 AI 场景适配与穿刺验证

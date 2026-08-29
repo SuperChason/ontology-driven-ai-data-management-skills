@@ -2,21 +2,74 @@
 
 [![Validate skills](https://github.com/SuperChason/ontology-driven-ai-data-management-skills/actions/workflows/validate.yml/badge.svg)](https://github.com/SuperChason/ontology-driven-ai-data-management-skills/actions/workflows/validate.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Agent Skills](https://img.shields.io/badge/Agent%20Skills-compatible-blue.svg)](https://agentskills.io/specification)
 
-面向企业本体工程、AI 数据治理与 Agent 行动闭环的 16 个可复用 Skill。
+面向企业本体工程、AI 数据治理与 Agent 行动闭环的 16 个可复用 Skill，同时支持 Codex、Claude Code 和 WorkBuddy。
 
 这套 Skill 受《本体驱动的 AI 数据管理》启发，将场景选择、知识提取、语义建模、质量验证、推理决策、行动控制和运行治理整理成可执行工作流。仓库只收录独立编写的 Skill 指令、测试材料和维护脚本，不包含原书 PDF、页面图片、逐字引文及案例正文。详细边界见 [NOTICE](NOTICE)。
 
-## 怎么使用
+## 平台支持
 
-在 Codex 中有两种调用方式：
+| 平台 | 使用方式 | 自动匹配 | 显式调用 | 分发形式 |
+|---|---|---:|---|---|
+| Codex | 安装到个人或项目 Skill 目录 | 支持 | `$skill-name` | 安装脚本、ZIP |
+| Claude Code | 安装到个人或项目 Skill 目录 | 支持 | `/skill-name` | 安装脚本、ZIP |
+| WorkBuddy | 在技能管理中上传并启用 | 支持 | 在对话中指定 Skill 名称 | 每个 Skill 一个 ZIP |
 
-- 显式调用：输入 `$` 后选择 Skill，或直接在提示词中写 `$skill-name`。
-- 自动匹配：直接描述任务，Codex 会根据每个 Skill 的 `description` 选择合适的工作流。
+三端共用 `skills/` 下的核心 `SKILL.md`。构建时会按平台生成运行包：
 
-建议一次使用 1～4 个 Skill。复杂任务可以按依赖顺序分阶段执行，每个阶段先检查中间产物和继续条件。
+- Codex 包保留 `agents/openai.yaml`，用于界面名称、简介和默认提示词。
+- Claude Code 包使用开放 Agent Skills 结构，排除 Codex 专属元数据。
+- WorkBuddy 包将每个 Skill 单独打包，压缩包根目录直接包含 `SKILL.md`。
+- `test-prompts.json` 和 `test-results.md` 留在源码仓库中，运行包不携带测试材料。
 
-### 示例
+## 快速下载
+
+进入 [GitHub Releases](https://github.com/SuperChason/ontology-driven-ai-data-management-skills/releases/latest) 下载对应平台文件：
+
+| 文件 | 用途 |
+|---|---|
+| `ontology-skills-codex-vX.Y.Z.zip` | Codex 离线安装包 |
+| `ontology-skills-claude-code-vX.Y.Z.zip` | Claude Code 离线安装包 |
+| `ontology-skills-workbuddy-vX.Y.Z.zip` | WorkBuddy 上传包合集 |
+| `SHA256SUMS.txt` | 下载文件完整性校验 |
+
+也可以克隆仓库后直接安装：
+
+```bash
+git clone https://github.com/SuperChason/ontology-driven-ai-data-management-skills.git
+cd ontology-driven-ai-data-management-skills
+```
+
+## Codex
+
+### 安装
+
+安装到当前用户，所有项目都可以使用：
+
+```bash
+./scripts/install.sh codex
+```
+
+默认目标目录为 `~/.codex/skills`。
+
+安装到当前项目，方便跟随项目版本管理：
+
+```bash
+./scripts/install.sh codex --target "$PWD/.agents/skills"
+```
+
+只安装一个 Skill：
+
+```bash
+./scripts/install.sh codex --skill ontology-ai-scenario-fit-and-spike
+```
+
+已有同名 Skill 时，安装脚本会保留现有版本并显示 `Skipped`。确认采用仓库版本后增加 `--force`。
+
+### 使用
+
+显式调用：
 
 ```text
 $ontology-ai-scenario-fit-and-spike
@@ -25,12 +78,159 @@ $ontology-ai-scenario-fit-and-spike
 请输出场景适配度、数据条件、首个穿刺场景、继续或停止标准，以及待确认问题。
 ```
 
-```text
-$action-contract-execution-feedback-loop
+自动匹配：
 
-为“创建预算调整建议单”设计 Action 契约。
-补齐输入、输出、权限、前置校验、幂等、失败重试、人工降级、执行回执和审计信息。
+```text
+帮我判断这个企业 AI 场景是否适合采用本体，并设计一个最小穿刺验证。
 ```
+
+Codex 会根据每个 Skill 的 `description` 选择相关工作流。复杂任务建议一次启用 1～4 个 Skill，按依赖顺序检查中间结果。
+
+### 更新
+
+使用 Git 克隆安装时：
+
+```bash
+git pull --ff-only
+python3 scripts/validate_skills.py
+./scripts/install.sh codex --force
+```
+
+只更新一个 Skill：
+
+```bash
+git pull --ff-only
+./scripts/install.sh codex --skill ontology-ai-scenario-fit-and-spike --force
+```
+
+使用 Release ZIP 安装时，下载新版本、解压到新目录，再运行其中的安装脚本：
+
+```bash
+./scripts/install.sh codex --force
+```
+
+更新后新建一个 Codex 任务，使用一个正向问题和一个无关问题检查触发边界。
+
+## Claude Code
+
+### 安装
+
+安装到当前用户：
+
+```bash
+./scripts/install.sh claude-code
+```
+
+默认目标目录为 `~/.claude/skills`。
+
+安装到当前项目：
+
+```bash
+./scripts/install.sh claude-code --target "$PWD/.claude/skills"
+```
+
+只安装一个 Skill：
+
+```bash
+./scripts/install.sh claude-code --skill fact-reason-action-business-loop
+```
+
+### 使用
+
+显式调用：
+
+```text
+/fact-reason-action-business-loop
+
+请把这段业务描述拆成事实、事理、行动和反馈闭环。
+```
+
+自动匹配：
+
+```text
+这个业务判断依据和后续系统动作混在一起了，帮我整理成可追溯闭环。
+```
+
+Claude Code 通过 `name` 和 `description` 发现 Skill。安装完成后可以输入 `/` 查看已加载的自定义 Skill；部分版本会实时发现新增文件，未出现时重新启动 Claude Code。
+
+### 更新
+
+使用 Git 克隆安装时：
+
+```bash
+git pull --ff-only
+python3 scripts/validate_skills.py
+./scripts/install.sh claude-code --force
+```
+
+使用 Release ZIP 安装时，下载并解压新版本，然后执行：
+
+```bash
+./scripts/install.sh claude-code --force
+```
+
+更新后输入 `/` 检查 Skill 名称，再用 `test-prompts.json` 中的一条 `should_trigger` 和一条 `should_not_trigger` 用例做抽样。
+
+## WorkBuddy
+
+### 获取上传包
+
+推荐从 [GitHub Releases](https://github.com/SuperChason/ontology-driven-ai-data-management-skills/releases/latest) 下载：
+
+```text
+ontology-skills-workbuddy-vX.Y.Z.zip
+```
+
+解压后结构如下：
+
+```text
+ontology-skills-workbuddy-vX.Y.Z/
+├── README.md
+├── LICENSE
+├── NOTICE
+├── VERSION
+└── skills/
+    ├── action-contract-execution-feedback-loop-vX.Y.Z.zip
+    ├── ...
+    └── twenty-nine-sentence-knowledge-extraction-vX.Y.Z.zip
+```
+
+`skills/` 里的 16 个 ZIP 才是 WorkBuddy 直接上传的 Skill 包。可以按实际需要选择，不要求一次全部安装。
+
+### 安装
+
+1. 打开 WorkBuddy。
+2. 进入左侧的“专家·技能·连接器”区域。
+3. 选择添加技能或上传本地技能包。
+4. 从解压后的 `skills/` 中选择一个 Skill ZIP。
+5. 查看名称、说明和权限范围，确认后安装并启用。
+6. 重复上述步骤，添加当前工作需要的其他 Skill。
+
+每个上传包的根目录都直接包含 `SKILL.md`，并附带 `LICENSE`、`NOTICE` 和 `VERSION`。
+
+### 使用
+
+直接描述任务，WorkBuddy 会根据 Skill 描述自动匹配：
+
+```text
+帮我判断这个场景是否适合做本体，并给出最小验证切口和停止条件。
+```
+
+需要明确指定时，在任务中写出完整 Skill 名称：
+
+```text
+请使用 ontology-ai-scenario-fit-and-spike 分析下面的场景材料。
+```
+
+### 更新
+
+1. 在 Releases 页面确认新版本号并下载新的 WorkBuddy 合集。
+2. 保留上一版本 ZIP，作为出现问题时的回退包。
+3. 解压新合集，找到需要更新的 Skill ZIP。
+4. 在 WorkBuddy 技能管理中停用旧版本。
+5. 上传新版同名 Skill；如果当前客户端不允许同名覆盖，先移除旧版本再上传。
+6. 启用新版，用一条正向问题、一条相邻 Skill 问题和一条无关问题做抽样。
+7. 抽样通过后再处理其余 Skill。
 
 ## Skill 导航
 
@@ -107,47 +307,89 @@ five-ring-ontology-engineering-lifecycle
 → ontology-runtime-service-and-version-operations
 ```
 
-## 安装
+## 仓库结构
 
-### 安装全部 Skill
-
-```bash
-git clone https://github.com/SuperChason/ontology-driven-ai-data-management-skills.git
-cd ontology-driven-ai-data-management-skills
-./scripts/install.sh
+```text
+.
+├── skills/                         # 16 个 Skill 的唯一核心源
+│   └── <skill-name>/
+│       ├── SKILL.md                # 三端共用
+│       ├── agents/openai.yaml      # Codex 专属界面元数据
+│       ├── test-prompts.json       # 触发与路由测试
+│       └── test-results.md         # 当前测试记录
+├── scripts/
+│   ├── install.sh                  # Codex、Claude Code 安装与更新
+│   ├── validate_skills.py          # 核心源校验
+│   ├── build_packages.py           # 三端打包
+│   └── validate_packages.py        # 分发包校验
+├── .github/workflows/
+│   ├── validate.yml                # 推送和 PR 自动校验
+│   └── release.yml                 # 标签触发 GitHub Release
+└── VERSION                          # 当前发布版本
 ```
 
-脚本默认复制到 `~/.agents/skills`。可以通过环境变量指定其他目录：
+## 本地构建和验证
+
+执行完整验证：
 
 ```bash
-CODEX_SKILLS_DIR="$HOME/.codex/skills" ./scripts/install.sh
+python3 scripts/validate_skills.py
+python3 scripts/build_packages.py
+python3 scripts/validate_packages.py
 ```
 
-已有同名 Skill 时脚本会跳过。确认需要覆盖后使用 `./scripts/install.sh --force`。
+成功后 `dist/` 中会生成：
 
-### 只安装一个 Skill
-
-```bash
-mkdir -p "$HOME/.agents/skills"
-cp -R skills/ontology-ai-scenario-fit-and-spike "$HOME/.agents/skills/"
+```text
+dist/
+├── ontology-skills-codex-vX.Y.Z.zip
+├── ontology-skills-claude-code-vX.Y.Z.zip
+├── ontology-skills-workbuddy-vX.Y.Z.zip
+├── SHA256SUMS.txt
+└── workbuddy/skills/
+    └── <16 个单 Skill ZIP>
 ```
 
-安装后重新打开 Codex；部分版本可以自动发现新增 Skill。
+`dist/` 是构建产物，不提交到 Git。推送代码后，GitHub Actions 会保留一份短期构建产物；推送与 `VERSION` 一致的 `vX.Y.Z` 标签后，Release 工作流会创建正式下载版本。
+
+## 维护和发布
+
+修改 Skill 时：
+
+1. 只编辑 `skills/<skill-name>/` 下的核心源。
+2. 修改触发条件时，同步更新 `test-prompts.json` 和 `test-results.md`。
+3. 运行三条本地构建与验证命令。
+4. 检查 `git diff --check` 和实际变更范围。
+5. 更新 `VERSION`。
+6. 合并并推送主分支。
+7. 创建与版本一致的 Git 标签，触发三端 Release。
+
+发布后分别抽样：
+
+- Codex：检查 `$skill-name` 显式调用和自动匹配。
+- Claude Code：检查 `/skill-name`、自动匹配和 Skill 列表。
+- WorkBuddy：上传一个新版 ZIP，检查启用、自动匹配和相邻 Skill 路由。
+
+结构校验可以发现打包错误，仍需保留平台运行抽样。平台升级、权限模型变化或模型切换后，重新执行抽样。
 
 ## 质量检查
 
 每个 Skill 都包含：
 
 - `SKILL.md`：触发边界、执行步骤、固定输出和失败模式。
-- `agents/openai.yaml`：展示名称、简介和默认提示词。
+- `agents/openai.yaml`：Codex 展示名称、简介和默认提示词。
 - `test-prompts.json`：正向、反向和边界触发测试。
 - `test-results.md`：当前测试记录。
 
-本地验证：
+校验脚本会检查：
 
-```bash
-python3 scripts/validate_skills.py
-```
+- 16 个 Skill 是否齐全。
+- `name`、`description` 和字符串型 `metadata` 是否符合开放规范。
+- 相邻 Skill 引用是否存在。
+- 公共仓库内容是否包含客户项目、个人路径或原书摘录。
+- 三端包是否只携带各自需要的运行文件。
+- WorkBuddy ZIP 的根目录是否包含 `SKILL.md`。
+- 发布文件 SHA-256 是否一致。
 
 ## 贡献
 

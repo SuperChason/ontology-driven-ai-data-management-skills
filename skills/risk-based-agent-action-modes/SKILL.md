@@ -3,17 +3,8 @@ name: risk-based-agent-action-modes
 description: |
   用于要决定Agent能否自动执行某个业务动作、需要设计人工审批或接管点，用户出现“这个动作能自动执行吗”“哪里需要人工介入”或 human in the loop, action autonomy, multi-agent mode 等信号时调用。不适用于只需描述具体API参数和错误码。
 metadata:
-  tags:
-    - action-mode
-    - direct-execution
-    - human-in-loop
-    - multi-agent
-    - risk
-    - enterprise-ai
-    - ontology-driven
-  related_skills:
-    - slug: fact-reason-goal-explainable-decision
-      relation: depends-on
+  tags: "action-mode, direct-execution, human-in-loop, multi-agent, risk, enterprise-ai, ontology-driven"
+  related-skills: "fact-reason-goal-explainable-decision:depends-on"
 ---
 
 # 基于风险的三类行动模式选择

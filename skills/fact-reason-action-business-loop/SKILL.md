@@ -3,15 +3,8 @@ name: fact-reason-action-business-loop
 description: |
   用于需要把模糊业务描述转成Agent可用模型、需要解释一个判断怎样落到系统动作，用户出现“帮我按事实事理行动拆解”“这个判断依据和动作怎么串起来”或 fact-reason-action, business loop, traceable action 等信号时调用。不适用于只需要解释术语或摘要文档。
 metadata:
-  tags:
-    - fact
-    - reasoning
-    - action
-    - dynamic-model
-    - closed-loop
-    - enterprise-ai
-    - ontology-driven
-  related_skills: []
+  tags: "fact, reasoning, action, dynamic-model, closed-loop, enterprise-ai, ontology-driven"
+  related-skills: ""
 ---
 
 # “事实—事理—行动”业务闭环建模
