@@ -32,7 +32,13 @@
 | `ontology-skills-codex-vX.Y.Z.zip` | Codex 离线安装包 |
 | `ontology-skills-claude-code-vX.Y.Z.zip` | Claude Code 离线安装包 |
 | `ontology-skills-workbuddy-vX.Y.Z.zip` | WorkBuddy 上传包合集 |
-| `SHA256SUMS.txt` | 下载文件完整性校验 |
+| `SHA256SUMS.txt` | 三份平台主包的完整性校验 |
+
+把三个平台主包和 `SHA256SUMS.txt` 下载到同一目录后，可执行：
+
+```bash
+shasum -a 256 -c SHA256SUMS.txt
+```
 
 也可以克隆仓库后直接安装：
 
@@ -189,6 +195,7 @@ ontology-skills-workbuddy-vX.Y.Z/
 ├── LICENSE
 ├── NOTICE
 ├── VERSION
+├── SHA256SUMS.txt
 └── skills/
     ├── action-contract-execution-feedback-loop-vX.Y.Z.zip
     ├── ...
@@ -196,6 +203,12 @@ ontology-skills-workbuddy-vX.Y.Z/
 ```
 
 `skills/` 里的 16 个 ZIP 才是 WorkBuddy 直接上传的 Skill 包。可以按实际需要选择，不要求一次全部安装。
+
+进入解压后的合集目录，可以复验 16 个单 Skill 包：
+
+```bash
+shasum -a 256 -c SHA256SUMS.txt
+```
 
 ### 安装
 
@@ -345,7 +358,7 @@ dist/
 ├── ontology-skills-codex-vX.Y.Z.zip
 ├── ontology-skills-claude-code-vX.Y.Z.zip
 ├── ontology-skills-workbuddy-vX.Y.Z.zip
-├── SHA256SUMS.txt
+├── SHA256SUMS.txt                 # 三份平台主包
 └── workbuddy/skills/
     └── <16 个单 Skill ZIP>
 ```
@@ -389,7 +402,7 @@ dist/
 - 公共仓库内容是否包含客户项目、个人路径或原书摘录。
 - 三端包是否只携带各自需要的运行文件。
 - WorkBuddy ZIP 的根目录是否包含 `SKILL.md`。
-- 发布文件 SHA-256 是否一致。
+- 三份发布主包及 WorkBuddy 内层 Skill 包的 SHA-256 是否一致。
 
 ## 贡献
 

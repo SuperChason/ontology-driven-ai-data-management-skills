@@ -105,6 +105,13 @@ def build_workbuddy_package(output: Path, release_version: str) -> tuple[Path, l
         target_skills.mkdir()
         for archive_path in individual_archives:
             shutil.copy2(archive_path, target_skills / archive_path.name)
+        (stage / "SHA256SUMS.txt").write_text(
+            "".join(
+                f"{sha256(archive_path)}  skills/{archive_path.name}\n"
+                for archive_path in individual_archives
+            ),
+            encoding="utf-8",
+        )
         bundle = output / f"ontology-skills-workbuddy-v{release_version}.zip"
         write_zip(bundle, stage, prefix=stage.name)
 
@@ -135,14 +142,16 @@ def main() -> int:
     ]
     workbuddy_bundle, individual = build_workbuddy_package(output, release_version)
     artifacts.append(workbuddy_bundle)
-    artifacts.extend(individual)
 
     checksum_file = output / "SHA256SUMS.txt"
     checksum_file.write_text(
         "".join(f"{sha256(path)}  {path.relative_to(output).as_posix()}\n" for path in sorted(artifacts)),
         encoding="utf-8",
     )
-    print(f"Built {len(artifacts)} archives in {output}")
+    print(
+        f"Built {len(artifacts)} release archives and "
+        f"{len(individual)} WorkBuddy skill archives in {output}"
+    )
     return 0
 
 

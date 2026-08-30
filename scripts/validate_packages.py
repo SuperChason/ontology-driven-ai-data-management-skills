@@ -63,6 +63,35 @@ def validate_workbuddy(path: Path, errors: list[str]) -> None:
         errors.append(f"{path.name}: contains platform-specific or test-only files")
 
 
+def validate_workbuddy_bundle(path: Path, errors: list[str]) -> None:
+    try:
+        names = archive_names(path)
+    except (OSError, zipfile.BadZipFile, ValueError) as exc:
+        errors.append(str(exc))
+        return
+    nested = sorted(name for name in names if "/skills/" in name and name.endswith(".zip"))
+    if len(nested) != EXPECTED_COUNT:
+        errors.append(f"{path.name}: expected {EXPECTED_COUNT} nested skill archives, found {len(nested)}")
+        return
+    checksum_members = [name for name in names if name.endswith("/SHA256SUMS.txt")]
+    if len(checksum_members) != 1:
+        errors.append(f"{path.name}: expected one nested SHA256SUMS.txt")
+        return
+    checksum_member = checksum_members[0]
+    prefix = checksum_member.removesuffix("SHA256SUMS.txt")
+    with zipfile.ZipFile(path) as archive:
+        lines = archive.read(checksum_member).decode("utf-8").splitlines()
+        listed: set[str] = set()
+        for line in lines:
+            expected, relative = line.split("  ", 1)
+            member = f"{prefix}{relative}"
+            listed.add(member)
+            if member not in names or hashlib.sha256(archive.read(member)).hexdigest() != expected:
+                errors.append(f"{path.name}: nested checksum mismatch: {relative}")
+        if listed != set(nested):
+            errors.append(f"{path.name}: nested checksum list does not match bundled skills")
+
+
 def main() -> int:
     errors: list[str] = []
     release_version = (ROOT / "VERSION").read_text(encoding="utf-8").strip()
@@ -84,20 +113,22 @@ def main() -> int:
     for path in individual:
         validate_workbuddy(path, errors)
     if workbuddy_bundle.is_file():
-        names = archive_names(workbuddy_bundle)
-        nested = [name for name in names if "/skills/" in name and name.endswith(".zip")]
-        if len(nested) != EXPECTED_COUNT:
-            errors.append(f"{workbuddy_bundle.name}: expected {EXPECTED_COUNT} nested skill archives, found {len(nested)}")
+        validate_workbuddy_bundle(workbuddy_bundle, errors)
 
     checksum_file = DIST / "SHA256SUMS.txt"
     if not checksum_file.is_file():
         errors.append("missing dist/SHA256SUMS.txt")
     else:
+        listed: set[str] = set()
         for line in checksum_file.read_text(encoding="utf-8").splitlines():
             expected, relative = line.split("  ", 1)
+            listed.add(relative)
             path = DIST / relative
             if not path.is_file() or digest(path) != expected:
                 errors.append(f"checksum mismatch: {relative}")
+        expected_release_files = {path.name for path in (codex, claude, workbuddy_bundle)}
+        if listed != expected_release_files:
+            errors.append("SHA256SUMS.txt must list exactly the three release archives")
 
     if errors:
         print("Package validation failed:")
