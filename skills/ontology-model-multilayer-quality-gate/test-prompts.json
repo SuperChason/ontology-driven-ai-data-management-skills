@@ -1,6 +1,6 @@
 {
   "skill": "ontology-model-multilayer-quality-gate",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "darwin_compatible": true,
   "test_cases": [
     {

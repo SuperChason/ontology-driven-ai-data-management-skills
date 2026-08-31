@@ -12,3 +12,11 @@
 | should-not-trigger-01 | scenario-data-requirements-readiness | 需求和表字段定位 |
 | should-not-trigger-02 | scenario-related-semantic-modeling | 业务语义定义 |
 | edge-01 | data-to-ontology-mapping-and-instantiation | 禁止无来源实例 |
+
+## v0.4.0 输出契约校验
+
+- **固定输出章节**：PASS，唯一二级章节
+- **明确交付物**：PASS，至少 3 项具名成果
+- **泛化输出占位**：PASS，未保留通用占位句
+- **本地引用解析**：PASS
+- **测试版本**：0.4.0

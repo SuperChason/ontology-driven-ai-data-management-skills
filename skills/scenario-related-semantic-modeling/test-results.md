@@ -12,3 +12,11 @@
 | should-not-trigger-01 | scenario-related-knowledge-structure | 来源证据台账 |
 | should-not-trigger-02 | ontology-logical-model-generation | RDF/OWL/SHACL |
 | edge-01 | scenario-related-semantic-modeling | 组成关系与继承区分 |
+
+## v0.4.0 输出契约校验
+
+- **固定输出章节**：PASS，唯一二级章节
+- **明确交付物**：PASS，至少 3 项具名成果
+- **泛化输出占位**：PASS，未保留通用占位句
+- **本地引用解析**：PASS
+- **测试版本**：0.4.0

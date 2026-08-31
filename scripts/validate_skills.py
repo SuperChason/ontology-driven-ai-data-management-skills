@@ -11,11 +11,13 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 SKILLS_DIR = ROOT / "skills"
 EXPECTED_COUNT = 25
+RELEASE_VERSION = (ROOT / "VERSION").read_text(encoding="utf-8").strip()
 FORBIDDEN_PATTERNS = {
     "absolute user path": re.compile(r"/Users/|[A-Za-z]:\\\\Users\\\\"),
     "project-specific content": re.compile(r"雅江|CYJDRP|中国雅江集团|久其"),
     "book excerpt section": re.compile(r"原文（Reading）|PDF第|书页\d+"),
 }
+GENERIC_OUTPUT_BOILERPLATE = "最终结果至少包含：输入与假设、逐步判断"
 
 
 def frontmatter(text: str) -> str:
@@ -114,6 +116,21 @@ def validate_skill(skill_dir: Path) -> list[str]:
     if len(text.splitlines()) > 500:
         errors.append(f"{skill_dir.name}: SKILL.md exceeds 500 lines")
 
+    output_heading = "## 固定输出"
+    if text.count(output_heading) != 1:
+        errors.append(f"{skill_dir.name}: expected exactly one level-2 fixed-output section")
+    else:
+        output_section = text.split(output_heading, 1)[1].split("\n## ", 1)[0]
+        output_items = [line for line in output_section.splitlines() if line.startswith("- ")]
+        if len(output_items) < 3:
+            errors.append(f"{skill_dir.name}: fixed-output section needs at least 3 named deliverables")
+    if GENERIC_OUTPUT_BOILERPLATE in text:
+        errors.append(f"{skill_dir.name}: fixed-output section still uses generic boilerplate")
+
+    for relative_reference in re.findall(r"\]\((references/[^)#]+)", text):
+        if not (skill_dir / relative_reference).is_file():
+            errors.append(f"{skill_dir.name}: missing referenced file {relative_reference}")
+
     for label, pattern in FORBIDDEN_PATTERNS.items():
         if pattern.search(text):
             errors.append(f"{skill_dir.name}: contains {label}")
@@ -127,6 +144,11 @@ def validate_skill(skill_dir: Path) -> list[str]:
         else:
             if payload.get("skill") != skill_dir.name:
                 errors.append(f"{skill_dir.name}: test skill name mismatch")
+            if payload.get("version") != RELEASE_VERSION:
+                errors.append(
+                    f"{skill_dir.name}: test version {payload.get('version')!r} "
+                    f"does not match VERSION {RELEASE_VERSION!r}"
+                )
             cases = payload.get("test_cases")
             if not isinstance(cases, list) or len(cases) < 3:
                 errors.append(f"{skill_dir.name}: expected at least 3 test cases")

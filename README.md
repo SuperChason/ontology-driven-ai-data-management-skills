@@ -35,6 +35,30 @@
 - 数据需求与准备度：确定业务、财务、IT 数据需要什么，以及真实系统、表、字段和接口在哪里。
 - 数据到本体映射：把已确认语义的数据对应到本体类、属性、关系和实例。
 
+## 统一输出物契约
+
+25 个 Skill 都明确声明固定交付物，不再只给出泛化的“判断、建议、下一步”。单阶段请求按当前 Skill 的成果顺序交付；完整场景建设由 `ontology-scenario-delivery` 组装为可追溯建设包。
+
+核心语义成果统一拆分为：
+
+```text
+业务术语
+→ 业务对象
+→ 对象属性
+→ 分类与继承
+→ 对象关系
+→ 业务规则
+→ 事件与状态
+→ 角色、权限与动作
+→ 目标与指标
+→ 追溯、冲突与确认状态
+```
+
+对象、属性、关系和规则使用稳定编号串联。每个关键条目保留所属场景与任务、来源证据、适用范围、状态、责任与确认角色、版本和下游链接。资料不足时保留候选、待确认或受阻状态，不为凑目录生成空成果。
+
+- 完整建设包目录：[`deliverable-package.md`](skills/ontology-scenario-delivery/references/deliverable-package.md)
+- 语义表格字段契约：[`semantic-model-contract.md`](skills/scenario-related-semantic-modeling/references/semantic-model-contract.md)
+
 ## 平台支持
 
 | 平台 | 使用方式 | 自动匹配 | 显式调用 | 分发形式 |
@@ -493,6 +517,8 @@ python3 scripts/build_packages.py
 python3 scripts/validate_packages.py
 ```
 
+`validate_skills.py` 同时检查每个 Skill 是否只有一个二级“固定输出”章节、是否列出至少 3 项明确成果，以及所引用的详细契约是否真实存在。
+
 成功后 `dist/` 中会生成：
 
 ```text
@@ -536,13 +562,15 @@ dist/
 - `test-prompts.json`：正向、反向和边界触发测试。
 - `test-results.md`：当前测试记录。
 
-v0.3.0 已完成结构、引用、安装和三端分发包校验。旧 16 个 Skill 的独立路由盲测保留为历史记录；新增 Skill 及新的 25 Skill 路由环境仍需在 Codex、Claude Code、WorkBuddy 中分别做行为抽样，测试文件会明确标记这一状态。
+v0.4.0 已完成 25 个 Skill 的结构、引用、固定输出契约、测试版本和三端分发包校验。旧 16 个 Skill 的独立路由盲测保留为历史记录；当前 25 Skill 路由环境继续在 Codex、Claude Code、WorkBuddy 中按版本做行为抽样，测试文件会明确标记这一状态。
 
 校验脚本会检查：
 
 - 25 个 Skill 是否齐全。
 - `name`、`description` 和字符串型 `metadata` 是否符合开放规范。
 - 相邻 Skill 引用是否存在。
+- 每个 Skill 是否只有一个二级“固定输出”章节，并列出至少 3 项明确交付物。
+- `SKILL.md` 中引用的本地模板是否存在，测试文件版本是否与仓库版本一致。
 - 公共仓库内容是否包含客户项目、个人路径或原书摘录。
 - 三端包是否只携带各自需要的运行文件。
 - WorkBuddy ZIP 的根目录是否包含 `SKILL.md`。

@@ -12,3 +12,11 @@
 | should-not-trigger-01 | scenario-related-semantic-modeling | 对象关系约束 |
 | should-not-trigger-02 | scenario-data-requirements-readiness | 系统表字段 |
 | edge-01 | scenario-related-knowledge-structure | 禁止无证据确认 |
+
+## v0.4.0 输出契约校验
+
+- **固定输出章节**：PASS，唯一二级章节
+- **明确交付物**：PASS，至少 3 项具名成果
+- **泛化输出占位**：PASS，未保留通用占位句
+- **本地引用解析**：PASS
+- **测试版本**：0.4.0
