@@ -1,0 +1,4 @@
+interface:
+  display_name: "逻辑本体模型生成"
+  short_description: "将已确认概念模型形式化为RDF OWL SKOS SHACL和查询"
+  default_prompt: "请使用 $ontology-logical-model-generation，把已确认的概念模型转换为最小必要的逻辑本体、约束、查询和动作接口，并保留来源与版本追溯。"

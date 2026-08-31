@@ -1,0 +1,44 @@
+{
+  "skill": "scenario-related-knowledge-structure",
+  "version": "0.3.0",
+  "darwin_compatible": true,
+  "test_cases": [
+    {
+      "id": "should-trigger-01",
+      "type": "should_trigger",
+      "prompt": "请梳理这个场景相关的知识结构，说明制度、数据、案例、专家和已有资产从哪里来。",
+      "expected_behavior": "应输出知识来源、证据、责任、复用和缺口结构。",
+      "notes": "直接触发。"
+    },
+    {
+      "id": "should-trigger-02",
+      "type": "should_trigger",
+      "prompt": "Build the scenario knowledge source and evidence landscape before semantic modeling.",
+      "expected_behavior": "应激活本 Skill 并形成来源与证据台账。",
+      "notes": "英文触发。"
+    },
+    {
+      "id": "should-not-trigger-01",
+      "type": "should_not_trigger",
+      "prompt": "请正式定义这些对象之间的关系、约束和继承结构。",
+      "expected_behavior": "应路由 scenario-related-semantic-modeling。",
+      "notes": "正式语义定义。"
+    },
+    {
+      "id": "should-not-trigger-02",
+      "type": "should_not_trigger",
+      "prompt": "帮我判断三类数据分别在哪些系统表字段里。",
+      "expected_behavior": "应路由 scenario-data-requirements-readiness。",
+      "notes": "数据物理来源。"
+    },
+    {
+      "id": "edge-01",
+      "type": "edge_case",
+      "prompt": "我只有一份来源不明的材料，请直接把其中内容确认成企业规则。",
+      "expected_behavior": "应标记来源和确认缺口，不把内容确认为正式规则。",
+      "notes": "来源不明。"
+    }
+  ],
+  "minimum_pass_rate": 0.8,
+  "notes": "验证知识来源结构与语义定义的边界。"
+}

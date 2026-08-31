@@ -4,9 +4,36 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Agent Skills](https://img.shields.io/badge/Agent%20Skills-compatible-blue.svg)](https://agentskills.io/specification)
 
-面向企业本体工程、AI 数据治理与 Agent 行动闭环的 16 个可复用 Skill，同时支持 Codex、Claude Code 和 WorkBuddy。
+面向企业本体工程、AI 数据治理与 Agent 行动闭环的 25 个可复用 Skill，同时支持 Codex、Claude Code 和 WorkBuddy。
 
-这套 Skill 受《本体驱动的 AI 数据管理》启发，将场景选择、知识提取、语义建模、质量验证、推理决策、行动控制和运行治理整理成可执行工作流。仓库只收录独立编写的 Skill 指令、测试材料和维护脚本，不包含原书 PDF、页面图片、逐字引文及案例正文。详细边界见 [NOTICE](NOTICE)。
+这套 Skill 受《本体驱动的 AI 数据管理》启发，将场景选择、智能体作用识别、场景深描、数据准备、知识结构、语义建模、逻辑本体、实例映射、质量验证、行动控制和运行治理整理成可执行工作流。仓库只收录独立编写的 Skill 指令、测试材料和维护脚本，不包含原书 PDF、页面图片、逐字引文及案例正文。详细边界见 [NOTICE](NOTICE)。
+
+## 场景驱动的建设链路
+
+用户可以从一个业务场景开始，使用总控 Skill 生成完整建设包：
+
+```text
+本体适用性初判
+→ 智能体作用与任务识别
+→ 场景完整梳理
+→ 业务/财务/IT 数据需求与准备度
+→ 场景相关的知识结构
+→ 场景相关的语义模型
+→ 概念模型
+→ 逻辑本体模型
+→ 数据到本体类、属性、关系和实例的映射
+→ 技术验证与业务验收
+→ 资产发布、运行服务和反馈演进
+```
+
+统一入口是 [`ontology-scenario-delivery`](skills/ontology-scenario-delivery/SKILL.md)。只有场景描述时，它会输出候选框架和资料缺口；具备制度、数据字典、真实样本和专家确认后，才继续形成可验证、可发布的模型成果。
+
+其中几个容易混淆的边界已经明确拆开：
+
+- 场景相关的知识结构：组织知识来源、证据、责任、案例、专家和可复用资产。
+- 场景相关的语义模型：正式定义术语、对象、属性、分类、继承、关系、约束、规则、状态、权限、动作和目标。
+- 数据需求与准备度：确定业务、财务、IT 数据需要什么，以及真实系统、表、字段和接口在哪里。
+- 数据到本体映射：把已确认语义的数据对应到本体类、属性、关系和实例。
 
 ## 平台支持
 
@@ -75,7 +102,15 @@ cd ontology-driven-ai-data-management-skills
 
 ### 使用
 
-显式调用：
+完整场景交付：
+
+```text
+$ontology-scenario-delivery
+
+请根据下面的业务场景和资料，判断当前成熟度，并从本体适配、智能体任务、数据需求、知识结构和语义模型一直输出到模型、实例、验证与发布所需的建设包。
+```
+
+单阶段显式调用：
 
 ```text
 $ontology-ai-scenario-fit-and-spike
@@ -90,7 +125,7 @@ $ontology-ai-scenario-fit-and-spike
 帮我判断这个企业 AI 场景是否适合采用本体，并设计一个最小穿刺验证。
 ```
 
-Codex 会根据每个 Skill 的 `description` 选择相关工作流。复杂任务建议一次启用 1～4 个 Skill，按依赖顺序检查中间结果。
+Codex 会根据每个 Skill 的 `description` 选择相关工作流。完整建设优先调用总控 Skill；单阶段问题直接调用对应专业 Skill。
 
 ### 更新
 
@@ -116,6 +151,24 @@ git pull --ff-only
 ```
 
 更新后新建一个 Codex 任务，使用一个正向问题和一个无关问题检查触发边界。
+
+### 验证与回滚
+
+验证完整建设入口：
+
+```text
+$ontology-scenario-delivery
+
+我只有一个场景描述，请判断当前能产出什么，并列出继续建设所需资料。不要把候选内容写成已确认事实。
+```
+
+如果新版路由或输出不符合预期，打开保留的上一版本 Release 解压目录，重新执行：
+
+```bash
+./scripts/install.sh codex --force
+```
+
+回滚后新建任务再次验证。个人目录和项目目录同时安装了同名 Skill 时，应先确认当前项目实际加载的是哪一份。
 
 ## Claude Code
 
@@ -143,7 +196,15 @@ git pull --ff-only
 
 ### 使用
 
-显式调用：
+完整场景交付：
+
+```text
+/ontology-scenario-delivery
+
+根据下面的场景、资料和数据条件生成本体建设包，并列出每一阶段的完成状态和缺口。
+```
+
+单阶段调用示例：
 
 ```text
 /fact-reason-action-business-loop
@@ -177,6 +238,18 @@ python3 scripts/validate_skills.py
 
 更新后输入 `/` 检查 Skill 名称，再用 `test-prompts.json` 中的一条 `should_trigger` 和一条 `should_not_trigger` 用例做抽样。
 
+### 验证与回滚
+
+先检查 `/ontology-scenario-delivery` 能否发现，再分别测试完整场景请求和单阶段数据需求请求，确认它们路由到不同 Skill。
+
+需要回滚时，保留当前工作目录，进入上一版本 Release 的解压目录并执行：
+
+```bash
+./scripts/install.sh claude-code --force
+```
+
+重新启动 Claude Code 后再次检查 Skill 列表和抽样问题。
+
 ## WorkBuddy
 
 ### 获取上传包
@@ -202,9 +275,9 @@ ontology-skills-workbuddy-vX.Y.Z/
     └── twenty-nine-sentence-knowledge-extraction-vX.Y.Z.zip
 ```
 
-`skills/` 里的 16 个 ZIP 才是 WorkBuddy 直接上传的 Skill 包。可以按实际需要选择，不要求一次全部安装。
+`skills/` 里的 25 个 ZIP 是 WorkBuddy 直接上传的 Skill 包。可以按实际需要选择；要执行完整建设链路，至少先上传总控 Skill，再按其路由提示上传所需专业 Skill。
 
-进入解压后的合集目录，可以复验 16 个单 Skill 包：
+进入解压后的合集目录，可以复验 25 个单 Skill 包：
 
 ```bash
 shasum -a 256 -c SHA256SUMS.txt
@@ -235,6 +308,12 @@ shasum -a 256 -c SHA256SUMS.txt
 请使用 ontology-ai-scenario-fit-and-spike 分析下面的场景材料。
 ```
 
+完整建设可以这样调用：
+
+```text
+请使用 ontology-scenario-delivery，根据下面的场景和资料生成完整本体建设包。资料不足的部分保留候选或受阻状态，并列出下一步。
+```
+
 ### 更新
 
 1. 在 Releases 页面确认新版本号并下载新的 WorkBuddy 合集。
@@ -245,24 +324,54 @@ shasum -a 256 -c SHA256SUMS.txt
 6. 启用新版，用一条正向问题、一条相邻 Skill 问题和一条无关问题做抽样。
 7. 抽样通过后再处理其余 Skill。
 
+### 验证与回滚
+
+验证时至少覆盖：
+
+1. 完整建设请求能够匹配 `ontology-scenario-delivery`；
+2. “业务财务IT数据需要什么”匹配 `scenario-data-requirements-readiness`；
+3. “数据怎样对应本体类和属性”匹配 `data-to-ontology-mapping-and-instantiation`；
+4. 普通术语问答不会误触完整建设链路。
+
+需要回滚时，停用新版同名 Skill，重新上传并启用保留的上一版本单 Skill ZIP。回滚总控 Skill 时，应同时检查它依赖的施工型 Skill 版本是否兼容。
+
 ## Skill 导航
+
+### 完整场景交付
+
+| Skill | 适用任务 |
+|---|---|
+| [`ontology-scenario-delivery`](skills/ontology-scenario-delivery/SKILL.md) | 从一个业务场景开始，编排全部建设阶段并生成可追溯交付包 |
 
 ### 场景规划与规模化落地
 
 | Skill | 适用任务 |
 |---|---|
 | [`ontology-ai-scenario-fit-and-spike`](skills/ontology-ai-scenario-fit-and-spike/SKILL.md) | 判断场景是否适合本体，设计首个小切口和穿刺验证 |
+| [`scenario-agent-role-design`](skills/scenario-agent-role-design/SKILL.md) | 判断智能体在场景中发挥什么作用，并划分Agent、系统和人工责任 |
+| [`business-scenario-deep-analysis`](skills/business-scenario-deep-analysis/SKILL.md) | 把场景完整梳理成可建模、可开发、可验收的规格 |
+| [`scenario-data-requirements-readiness`](skills/scenario-data-requirements-readiness/SKILL.md) | 梳理业务、财务、IT数据需求，定位系统表字段并判断准备度 |
 | [`ontology-ai-application-pattern-selection`](skills/ontology-ai-application-pattern-selection/SKILL.md) | 在问答、审核、协同、决策和 PDCA 等应用模式中选型 |
 | [`five-ring-ontology-engineering-lifecycle`](skills/five-ring-ontology-engineering-lifecycle/SKILL.md) | 规划从知识采集到上线运营的本体工程生命周期 |
 | [`point-line-plane-ontology-scaling`](skills/point-line-plane-ontology-scaling/SKILL.md) | 从单点场景扩展到业务线和企业级复用 |
 
-### 知识提取、语义建模与质量验证
+### 知识、语义与模型施工
 
 | Skill | 适用任务 |
 |---|---|
-| [`fact-reason-action-business-loop`](skills/fact-reason-action-business-loop/SKILL.md) | 用事实、事理、行动建立可追溯业务闭环 |
+| [`scenario-related-knowledge-structure`](skills/scenario-related-knowledge-structure/SKILL.md) | 组织场景知识来源、证据、责任、案例、专家和复用资产 |
 | [`twenty-nine-sentence-knowledge-extraction`](skills/twenty-nine-sentence-knowledge-extraction/SKILL.md) | 从制度、材料和专家访谈中提取结构化业务知识 |
+| [`scenario-related-semantic-modeling`](skills/scenario-related-semantic-modeling/SKILL.md) | 定义场景对象、术语、关系、约束、规则、状态、权限、动作和目标 |
 | [`seven-plus-one-semantic-mapping`](skills/seven-plus-one-semantic-mapping/SKILL.md) | 检查术语、规则、权限、动作和目标评估是否完整 |
+| [`ontology-conceptual-model-design`](skills/ontology-conceptual-model-design/SKILL.md) | 把语义组织成业务专家可审查的多视图概念模型 |
+| [`ontology-logical-model-generation`](skills/ontology-logical-model-generation/SKILL.md) | 生成RDF/OWL/SKOS/SHACL、查询和动作接口 |
+| [`data-to-ontology-mapping-and-instantiation`](skills/data-to-ontology-mapping-and-instantiation/SKILL.md) | 将已确认数据映射到本体类、属性、关系并生成实例 |
+| [`fact-reason-action-business-loop`](skills/fact-reason-action-business-loop/SKILL.md) | 用事实、事理、行动建立可追溯业务闭环 |
+
+### 质量验证
+
+| Skill | 适用任务 |
+|---|---|
 | [`ontology-model-multilayer-quality-gate`](skills/ontology-model-multilayer-quality-gate/SKILL.md) | 从语法、结构、语义和业务层审查本体质量 |
 | [`ontology-golden-case-testing`](skills/ontology-golden-case-testing/SKILL.md) | 用黄金问题集、边界用例和回归矩阵验收本体 |
 
@@ -285,21 +394,53 @@ shasum -a 256 -c SHA256SUMS.txt
 
 ## 推荐组合
 
-### 从场景到首个验证
+### 从一个场景到完整交付
+
+```text
+ontology-scenario-delivery
+→ ontology-ai-scenario-fit-and-spike
+→ scenario-agent-role-design
+→ business-scenario-deep-analysis
+→ scenario-data-requirements-readiness
+→ scenario-related-knowledge-structure
+→ twenty-nine-sentence-knowledge-extraction
+→ scenario-related-semantic-modeling
+→ ontology-conceptual-model-design
+→ ontology-logical-model-generation
+→ data-to-ontology-mapping-and-instantiation
+→ ontology-model-multilayer-quality-gate
+→ ontology-golden-case-testing
+→ ontology-runtime-service-and-version-operations
+```
+
+### 从场景到首个验证切口
 
 ```text
 ontology-ai-scenario-fit-and-spike
+→ scenario-agent-role-design
+→ business-scenario-deep-analysis
 → ontology-ai-application-pattern-selection
 ```
 
-### 从业务材料到可验收本体
+### 从场景材料到可验收本体
+
+```text
+scenario-related-knowledge-structure
+→ twenty-nine-sentence-knowledge-extraction
+→ scenario-related-semantic-modeling
+→ ontology-conceptual-model-design
+→ ontology-logical-model-generation
+→ data-to-ontology-mapping-and-instantiation
+→ ontology-model-multilayer-quality-gate
+→ ontology-golden-case-testing
+```
+
+### 从自然语言知识到语义完整性检查
 
 ```text
 twenty-nine-sentence-knowledge-extraction
 → fact-reason-action-business-loop
 → seven-plus-one-semantic-mapping
-→ ontology-model-multilayer-quality-gate
-→ ontology-golden-case-testing
 ```
 
 ### 从 Agent 判断到受控执行
@@ -324,10 +465,11 @@ five-ring-ontology-engineering-lifecycle
 
 ```text
 .
-├── skills/                         # 16 个 Skill 的唯一核心源
+├── skills/                         # 25 个 Skill 的唯一核心源
 │   └── <skill-name>/
 │       ├── SKILL.md                # 三端共用
 │       ├── agents/openai.yaml      # Codex 专属界面元数据
+│       ├── references/             # 按需加载的详细契约与模板，可选
 │       ├── test-prompts.json       # 触发与路由测试
 │       └── test-results.md         # 当前测试记录
 ├── scripts/
@@ -360,7 +502,7 @@ dist/
 ├── ontology-skills-workbuddy-vX.Y.Z.zip
 ├── SHA256SUMS.txt                 # 三份平台主包
 └── workbuddy/skills/
-    └── <16 个单 Skill ZIP>
+    └── <25 个单 Skill ZIP>
 ```
 
 `dist/` 是构建产物，不提交到 Git。推送代码后，GitHub Actions 会保留一份短期构建产物；推送与 `VERSION` 一致的 `vX.Y.Z` 标签后，Release 工作流会创建正式下载版本。
@@ -394,9 +536,11 @@ dist/
 - `test-prompts.json`：正向、反向和边界触发测试。
 - `test-results.md`：当前测试记录。
 
+v0.3.0 已完成结构、引用、安装和三端分发包校验。旧 16 个 Skill 的独立路由盲测保留为历史记录；新增 Skill 及新的 25 Skill 路由环境仍需在 Codex、Claude Code、WorkBuddy 中分别做行为抽样，测试文件会明确标记这一状态。
+
 校验脚本会检查：
 
-- 16 个 Skill 是否齐全。
+- 25 个 Skill 是否齐全。
 - `name`、`description` 和字符串型 `metadata` 是否符合开放规范。
 - 相邻 Skill 引用是否存在。
 - 公共仓库内容是否包含客户项目、个人路径或原书摘录。

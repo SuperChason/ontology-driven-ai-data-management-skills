@@ -1,0 +1,44 @@
+{
+  "skill": "scenario-related-semantic-modeling",
+  "version": "0.3.0",
+  "darwin_compatible": true,
+  "test_cases": [
+    {
+      "id": "should-trigger-01",
+      "type": "should_trigger",
+      "prompt": "请建设这个场景相关的语义模型，把对象、分类、关系、约束、规则、动作和目标都定义清楚。",
+      "expected_behavior": "应生成完整场景语义目录并保留来源和状态。",
+      "notes": "完整语义建模。"
+    },
+    {
+      "id": "should-trigger-02",
+      "type": "should_trigger",
+      "prompt": "Define the scenario semantic model, including business objects, constraints, states, permissions and task completion goals.",
+      "expected_behavior": "应激活本 Skill 并覆盖数据、业务和行动语义。",
+      "notes": "英文触发。"
+    },
+    {
+      "id": "should-not-trigger-01",
+      "type": "should_not_trigger",
+      "prompt": "这些规则和对象来自哪些制度、专家和案例？先做来源台账。",
+      "expected_behavior": "应路由 scenario-related-knowledge-structure。",
+      "notes": "知识来源盘点。"
+    },
+    {
+      "id": "should-not-trigger-02",
+      "type": "should_not_trigger",
+      "prompt": "把已确认模型直接生成RDF、OWL和SHACL文件。",
+      "expected_behavior": "应路由 ontology-logical-model-generation。",
+      "notes": "逻辑本体生成。"
+    },
+    {
+      "id": "edge-01",
+      "type": "edge_case",
+      "prompt": "项目包含任务，能不能直接把项目和任务做成父类子类？",
+      "expected_behavior": "应识别为组成关系，除非有独立证据证明存在is-a继承。",
+      "notes": "继承与组成边界。"
+    }
+  ],
+  "minimum_pass_rate": 0.8,
+  "notes": "验证知识结构、逻辑模型以及分类继承边界。"
+}

@@ -1,0 +1,4 @@
+interface:
+  display_name: "数据到本体映射与实例构建"
+  short_description: "把已确认数据对应到本体类属性关系并生成实例"
+  default_prompt: "请使用 $data-to-ontology-mapping-and-instantiation，基于已确认的数据来源、语义和逻辑本体，建立记录到类、字段到属性、关联到关系的映射并生成可追溯实例。"

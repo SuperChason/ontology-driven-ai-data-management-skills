@@ -1,7 +1,8 @@
 # intent-driven-minimal-ontology-loading — Stage 4 压力测试结果
 
 - **评测方式**：独立 sub-agent 盲测
-- **可见信息**：16 个 Skill 的 name + description、用户 prompt
+- **历史可见信息**：v0.1.0 的 16 个 Skill name + description、用户 prompt
+- **当前状态**：v0.3.0 已扩展为 25 个 Skill，需重新执行跨平台行为抽样
 - **隐藏信息**：case 类型、预期行为、备注和通过标准
 - **通过率**：6/6（100%）
 - **诱饵测试**：全部通过

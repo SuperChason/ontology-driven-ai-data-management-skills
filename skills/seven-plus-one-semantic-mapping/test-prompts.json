@@ -1,6 +1,6 @@
 {
   "skill": "seven-plus-one-semantic-mapping",
-  "version": "0.1.0",
+  "version": "0.3.0",
   "darwin_compatible": true,
   "test_cases": [
     {

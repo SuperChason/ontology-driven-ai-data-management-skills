@@ -1,0 +1,44 @@
+{
+  "skill": "ontology-logical-model-generation",
+  "version": "0.3.0",
+  "darwin_compatible": true,
+  "test_cases": [
+    {
+      "id": "should-trigger-01",
+      "type": "should_trigger",
+      "prompt": "概念模型已经确认，请生成逻辑本体、TTL、SHACL约束和查询模板。",
+      "expected_behavior": "应形式化类、属性、关系、约束、查询和元数据。",
+      "notes": "直接生成。"
+    },
+    {
+      "id": "should-trigger-02",
+      "type": "should_trigger",
+      "prompt": "Formalize the approved conceptual model into RDF, OWL, SKOS and SHACL artifacts.",
+      "expected_behavior": "应激活本 Skill 并保留追溯。",
+      "notes": "英文触发。"
+    },
+    {
+      "id": "should-not-trigger-01",
+      "type": "should_not_trigger",
+      "prompt": "这些对象关系的业务定义还在争议，先帮我统一语义。",
+      "expected_behavior": "应路由 scenario-related-semantic-modeling。",
+      "notes": "前置语义未确认。"
+    },
+    {
+      "id": "should-not-trigger-02",
+      "type": "should_not_trigger",
+      "prompt": "请独立审查这个现有TTL能不能进生产。",
+      "expected_behavior": "应路由 ontology-model-multilayer-quality-gate。",
+      "notes": "现有模型质量审查。"
+    },
+    {
+      "id": "edge-01",
+      "type": "edge_case",
+      "prompt": "资料里有几条未经专家确认的规则，也一并写成生产约束吧。",
+      "expected_behavior": "应隔离为候选或退回确认，不升级为生产约束。",
+      "notes": "未确认规则。"
+    }
+  ],
+  "minimum_pass_rate": 0.8,
+  "notes": "验证形式化生成与语义、质量审查的边界。"
+}

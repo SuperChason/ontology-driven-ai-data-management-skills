@@ -4,7 +4,7 @@ description: |
   用于大模型生成了本体，需要判断能否使用、准备评审本体模型质量和生产准入，用户出现“帮我做本体质量审查”“双模型怎么校验”或 ontology quality gate, dual-model audit, semantic review 等信号时调用。不适用于把同一个模型的自我反思当作独立审核。
 metadata:
   tags: "quality-gate, clarity, logic, completeness, expert-review, enterprise-ai, ontology-driven"
-  related-skills: "twenty-nine-sentence-knowledge-extraction:depends-on"
+  related-skills: "ontology-logical-model-generation:depends-on, data-to-ontology-mapping-and-instantiation:depends-on, ontology-golden-case-testing:feeds-into"
 ---
 
 # AI 本体建模的多层质量门
@@ -43,15 +43,15 @@ metadata:
 Skill 激活后按以下顺序执行：
 
 1. **检查输入准入**
-   - 动作：确认知识描述清晰、正确、完整、最简，并保留来源与确认状态。
-   - 完成标准：未确认或冲突输入已隔离。
+   - 动作：确认场景语义、概念模型、逻辑本体、数据到本体映射和样例实例版本一致，并保留来源与确认状态。
+   - 完成标准：未确认或冲突输入已隔离，前序产物追溯完整。
 
 2. **独立生成与审核**
    - 动作：使用不同模型或隔离上下文完成生成和审计，输出具体缺陷、位置、等级和依据。
    - 完成标准：审核模型未看到生成模型的自我评价，争议项可复现。
 
 3. **运行形式校验**
-   - 动作：检查语法、命名、类层级、定义域值域、约束、规则冲突和未引用实体。
+   - 动作：检查语法、命名、类层级、定义域值域、SHACL约束、规则冲突、映射完整性、实例来源和未引用实体。
    - 完成标准：工具错误清零，警告均有处置结论。
 
 4. **执行专家三层审查**
@@ -64,7 +64,7 @@ Skill 激活后按以下顺序执行：
 
 ### 固定输出
 
-最终结果至少包含：输入与假设、逐步判断、证据与来源、未决项、风险边界、建议动作、完成标准。涉及项目适配时，将方法假设与项目事实分栏表达。
+最终结果至少包含：输入版本与追溯检查、语法与结构报告、逻辑和SHACL报告、数据映射与实例报告、独立审核缺陷、专家审查记录、阻断项、剩余风险和准入结论。
 
 ## 使用边界
 
@@ -89,11 +89,11 @@ Skill 激活后按以下顺序执行：
 
 ## 相关 Skills
 
-- `depends-on` → `twenty-nine-sentence-knowledge-extraction`；29句话改善建模输入；本 skill 审查形式化产物。
+- `depends-on` → `ontology-logical-model-generation` 与 `data-to-ontology-mapping-and-instantiation`。
+- `feeds-into` → `ontology-golden-case-testing`；技术与专家质量门通过后进入真实任务用例验收。
 
 ## 审计信息
 
-- **验证通过**：V1 ✓ / V2 ✓ / V3 ✓
-- **测试通过率**：100%（6/6，独立 sub-agent 盲测；详见 test-results.md）
+- **历史验证**：v0.1.0 路由测试 6/6；v0.3.0 增加逻辑模型、映射和实例输入后需重新执行跨平台行为抽样
 - **首次公开版本**：2026-08-21
 - **来源说明**：方法框架受《本体驱动的 AI 数据管理》启发；仓库不包含原书正文。

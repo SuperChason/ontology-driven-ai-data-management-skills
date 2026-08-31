@@ -4,7 +4,7 @@ description: |
   用于需要规划企业本体建设项目、已有模型原型但缺少上线和运营路径，用户出现“按五环规划实施”“本体项目需要哪些阶段和产出”或 ontology lifecycle, five-ring, production readiness 等信号时调用。不适用于仅需制作一次性概念演示。
 metadata:
   tags: "ontology-engineering, lifecycle, implementation, platform, enterprise, enterprise-ai, ontology-driven"
-  related-skills: "ontology-ai-scenario-fit-and-spike:depends-on, ontology-model-multilayer-quality-gate:composes-with"
+  related-skills: "ontology-ai-scenario-fit-and-spike:depends-on, ontology-scenario-delivery:composes-with, ontology-model-multilayer-quality-gate:composes-with"
 ---
 
 # 本体工程“五环联动”生命周期
@@ -17,6 +17,7 @@ metadata:
 - 入库完成注册、版本、来源、权限和生产准入。
 - 平台提供可视化、存储、检索、服务和运行监控能力。
 - 实施把本体放进真实闭环，通过建用优复和双线运维持续演进。
+- 场景交付链路作为五环内的施工顺序：场景与Agent定位、场景深描、数据准备、知识结构、语义模型、概念与逻辑模型、实例、验证、发布和运行。
 
 ## 触发场景
 
@@ -51,7 +52,7 @@ Skill 激活后按以下顺序执行：
    - 完成标准：每一环标为可用、需补强或缺失，并附证据。
 
 3. **安排最短闭环**
-   - 动作：围绕首个真实场景，只建设支持端到端闭环的必要能力。
+   - 动作：调用 `ontology-scenario-delivery`，围绕首个真实场景安排从Agent任务到模型、实例、验证和发布的必要能力。
    - 完成标准：任务依赖和先后顺序明确，未引入无场景支撑的平台能力。
 
 4. **设置生产门**
@@ -89,11 +90,11 @@ Skill 激活后按以下顺序执行：
 ## 相关 Skills
 
 - `depends-on` → `ontology-ai-scenario-fit-and-spike`。
+- `composes-with` → `ontology-scenario-delivery`；五环负责项目生命周期，总控 Skill 负责单场景施工和交付物。
 - `composes-with` → `ontology-model-multilayer-quality-gate`；本 skill 规划全生命周期；多层质量门专注建模环节的质量准入。
 
 ## 审计信息
 
-- **验证通过**：V1 ✓ / V2 ✓ / V3 ✓
-- **测试通过率**：100%（6/6，独立 sub-agent 盲测；详见 test-results.md）
+- **历史验证**：v0.1.0 路由测试 6/6；v0.3.0 接入场景交付链路后需重新执行跨平台行为抽样
 - **首次公开版本**：2026-08-21
 - **来源说明**：方法框架受《本体驱动的 AI 数据管理》启发；仓库不包含原书正文。

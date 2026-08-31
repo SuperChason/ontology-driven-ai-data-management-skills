@@ -1,0 +1,4 @@
+interface:
+  display_name: "场景相关的语义模型"
+  short_description: "统一对象、术语、关系、约束、规则、动作和目标语义"
+  default_prompt: "请使用 $scenario-related-semantic-modeling，基于已确认的场景、数据和知识来源，建设对象、关系、约束、规则、权限、动作与目标完整的场景语义模型。"

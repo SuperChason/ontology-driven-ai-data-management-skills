@@ -9,7 +9,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 DIST = ROOT / "dist"
-EXPECTED_COUNT = 16
+EXPECTED_COUNT = 25
 
 
 def digest(path: Path) -> str:

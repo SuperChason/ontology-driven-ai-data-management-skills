@@ -1,0 +1,4 @@
+interface:
+  display_name: "场景数据需求与准备度分析"
+  short_description: "梳理业务财务IT数据需求、物理来源和可用缺口"
+  default_prompt: "请使用 $scenario-data-requirements-readiness，从这个场景的Agent任务和业务判断反推业务、财务、IT数据需求，定位系统表字段并评估准备度。"

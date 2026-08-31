@@ -1,0 +1,4 @@
+interface:
+  display_name: "场景相关的知识结构"
+  short_description: "组织场景所需知识来源、证据、责任、复用和缺口"
+  default_prompt: "请使用 $scenario-related-knowledge-structure，围绕这个场景的Agent任务，梳理制度、数据、案例、专家和已有资产，形成知识结构、证据链与缺口清单。"

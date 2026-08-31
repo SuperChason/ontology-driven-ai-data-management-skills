@@ -1,0 +1,44 @@
+{
+  "skill": "scenario-data-requirements-readiness",
+  "version": "0.3.0",
+  "darwin_compatible": true,
+  "test_cases": [
+    {
+      "id": "should-trigger-01",
+      "type": "should_trigger",
+      "prompt": "这个场景需要哪些业务、财务和IT数据？请定位来源表字段并判断能不能用。",
+      "expected_behavior": "应输出任务数据矩阵、物理来源和准备度。",
+      "notes": "三类数据需求。"
+    },
+    {
+      "id": "should-trigger-02",
+      "type": "should_trigger",
+      "prompt": "Assess scenario data requirements, source availability, access, quality and readiness gaps.",
+      "expected_behavior": "应激活本 Skill 并形成数据准备度报告。",
+      "notes": "英文触发。"
+    },
+    {
+      "id": "should-not-trigger-01",
+      "type": "should_not_trigger",
+      "prompt": "把这张表的每条记录映射成Ontology类的实例。",
+      "expected_behavior": "应路由 data-to-ontology-mapping-and-instantiation。",
+      "notes": "数据到本体映射。"
+    },
+    {
+      "id": "should-not-trigger-02",
+      "type": "should_not_trigger",
+      "prompt": "请定义项目、活动和预算事项之间的业务语义。",
+      "expected_behavior": "应路由 scenario-related-semantic-modeling。",
+      "notes": "语义定义。"
+    },
+    {
+      "id": "edge-01",
+      "type": "edge_case",
+      "prompt": "数据目录里有表名，没有权限和真实样本，能直接判定生产数据已就绪吗？",
+      "expected_behavior": "不得判定生产就绪，应标记缺权限和样本验证。",
+      "notes": "准备度边界。"
+    }
+  ],
+  "minimum_pass_rate": 0.8,
+  "notes": "验证物理来源定位与数据到本体映射的边界。"
+}

@@ -4,7 +4,7 @@ description: |
   用于要从制度和业务资料提取本体知识、专家说得很散，需要结构化访谈，用户出现“怎么访谈业务专家”“用29句话提取知识”或 knowledge elicitation, expert interview, 29 sentences 等信号时调用。不适用于资料来源不明且没有业务专家可确认。
 metadata:
   tags: "knowledge-elicitation, interview, 29-sentences, business-expert, preprocessing, enterprise-ai, ontology-driven"
-  related-skills: "seven-plus-one-semantic-mapping:depends-on"
+  related-skills: "scenario-related-knowledge-structure:depends-on, scenario-related-semantic-modeling:feeds-into, seven-plus-one-semantic-mapping:feeds-into"
 ---
 
 # 用“29句话”提取业务知识
@@ -17,6 +17,8 @@ metadata:
 - 每个答案都要保留来源、适用范围、例外和确认人，避免把口头经验直接固化。
 - 相近答案合并为统一术语，冲突答案进入待裁决清单。
 - 输出应能直接交给7+1映射和本体建模质量门。
+
+执行完整提取或设计专家访谈时，先读取 [29 类建模语句](references/29-modeling-statements.md)，按与当前场景相关的类别逐项作答。
 
 ## 触发场景
 
@@ -47,7 +49,7 @@ Skill 激活后按以下顺序执行：
    - 完成标准：每类知识有来源负责人和适用时间。
 
 2. **按29类问题提取**
-   - 动作：依次追问对象与特征、关系与分类、规则与约束、流程与变化、查询与数据操作、权限与Action、背景与质量。
+   - 动作：依次追问对象属性、对象关系、分类约束、术语、规则、操作与服务、权限和七类查询更新语义。
    - 完成标准：每个相关问题都有答案、无答案原因或待确认责任人。
 
 3. **追问隐性判断**
@@ -64,7 +66,7 @@ Skill 激活后按以下顺序执行：
 
 ### 固定输出
 
-最终结果至少包含：输入与假设、逐步判断、证据与来源、未决项、风险边界、建议动作、完成标准。涉及项目适配时，将方法假设与项目事实分栏表达。
+最终结果至少包含：29 类语句编号、自然语言答案、来源、证据位置、适用范围、例外、状态、责任人、冲突项、待确认问题和对应的场景任务。与当前场景无关的类别说明理由，不用虚构内容填满表格。
 
 ## 使用边界
 
@@ -86,11 +88,11 @@ Skill 激活后按以下顺序执行：
 
 ## 相关 Skills
 
-- `depends-on` → `seven-plus-one-semantic-mapping`；本 skill 负责采集和澄清自然语言知识；7+1负责将确认后的知识映射为语义构件。
+- `depends-on` → `scenario-related-knowledge-structure`；先确定材料、专家和证据范围。
+- `feeds-into` → `scenario-related-semantic-modeling` 和 `seven-plus-one-semantic-mapping`；本 Skill 负责采集和澄清，后续完成正式语义定义和完整性检查。
 
 ## 审计信息
 
-- **验证通过**：V1 ✓ / V2 ✓ / V3 ✓
-- **测试通过率**：100%（6/6，独立 sub-agent 盲测；详见 test-results.md）
+- **历史验证**：v0.1.0 路由测试 6/6；v0.3.0 补齐29类语句和新依赖后需重新执行跨平台行为抽样
 - **首次公开版本**：2026-08-21
 - **来源说明**：方法框架受《本体驱动的 AI 数据管理》启发；仓库不包含原书正文。

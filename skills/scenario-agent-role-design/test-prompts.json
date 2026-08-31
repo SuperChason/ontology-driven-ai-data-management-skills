@@ -1,0 +1,44 @@
+{
+  "skill": "scenario-agent-role-design",
+  "version": "0.3.0",
+  "darwin_compatible": true,
+  "test_cases": [
+    {
+      "id": "should-trigger-01",
+      "type": "should_trigger",
+      "prompt": "这个场景后面想做成智能体，先帮我判断Agent能帮哪部分、主要发挥什么作用。",
+      "expected_behavior": "应识别Agent候选任务并划分人工与系统边界。",
+      "notes": "直接触发。"
+    },
+    {
+      "id": "should-trigger-02",
+      "type": "should_trigger",
+      "prompt": "Please define the agent role, task boundary and human handoff points for this business scenario.",
+      "expected_behavior": "应激活本 Skill 并输出任务、分工和人工介入。",
+      "notes": "英文触发。"
+    },
+    {
+      "id": "should-not-trigger-01",
+      "type": "should_not_trigger",
+      "prompt": "这个高风险动作失败后怎么重试和回滚？",
+      "expected_behavior": "应路由 action-contract-execution-feedback-loop。",
+      "notes": "具体Action契约。"
+    },
+    {
+      "id": "should-not-trigger-02",
+      "type": "should_not_trigger",
+      "prompt": "请帮我生成 ontology.ttl。",
+      "expected_behavior": "应路由 ontology-logical-model-generation。",
+      "notes": "已进入逻辑建模。"
+    },
+    {
+      "id": "edge-01",
+      "type": "edge_case",
+      "prompt": "这个场景目前只有一个标题，帮我把智能体全自动执行方案定下来。",
+      "expected_behavior": "只输出候选作用和所需信息，不确定全自动执行。",
+      "notes": "输入不足。"
+    }
+  ],
+  "minimum_pass_rate": 0.8,
+  "notes": "验证Agent角色设计与Action、逻辑建模的边界。"
+}

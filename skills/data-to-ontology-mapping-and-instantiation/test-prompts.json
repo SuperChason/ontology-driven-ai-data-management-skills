@@ -1,0 +1,44 @@
+{
+  "skill": "data-to-ontology-mapping-and-instantiation",
+  "version": "0.3.0",
+  "darwin_compatible": true,
+  "test_cases": [
+    {
+      "id": "should-trigger-01",
+      "type": "should_trigger",
+      "prompt": "表字段和语义都已经确认，请说明记录怎样对应本体类、字段怎样对应属性，并生成实例。",
+      "expected_behavior": "应输出记录、字段、关系、代码和实例映射。",
+      "notes": "直接映射。"
+    },
+    {
+      "id": "should-trigger-02",
+      "type": "should_trigger",
+      "prompt": "Map validated source data to ontology classes and properties, then create traceable instances.",
+      "expected_behavior": "应激活本 Skill 并保留来源和版本。",
+      "notes": "英文触发。"
+    },
+    {
+      "id": "should-not-trigger-01",
+      "type": "should_not_trigger",
+      "prompt": "我还不知道需要哪些数据，也没找到系统表字段，先帮我做准备度盘点。",
+      "expected_behavior": "应路由 scenario-data-requirements-readiness。",
+      "notes": "物理来源尚未定位。"
+    },
+    {
+      "id": "should-not-trigger-02",
+      "type": "should_not_trigger",
+      "prompt": "请定义这些字段在业务上分别表示什么。",
+      "expected_behavior": "应路由 scenario-related-semantic-modeling。",
+      "notes": "数据语义定义。"
+    },
+    {
+      "id": "edge-01",
+      "type": "edge_case",
+      "prompt": "有一批来源不明的数据，先生成生产本体实例再说。",
+      "expected_behavior": "应阻止生产实例生成并要求来源、权限和语义确认。",
+      "notes": "来源缺失。"
+    }
+  ],
+  "minimum_pass_rate": 0.8,
+  "notes": "验证数据源定位、语义定义与数据到本体映射的边界。"
+}

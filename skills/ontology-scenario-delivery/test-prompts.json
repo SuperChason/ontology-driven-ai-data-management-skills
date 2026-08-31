@@ -1,0 +1,44 @@
+{
+  "skill": "ontology-scenario-delivery",
+  "version": "0.3.0",
+  "darwin_compatible": true,
+  "test_cases": [
+    {
+      "id": "should-trigger-01",
+      "type": "should_trigger",
+      "prompt": "我已经梳理了一个业务场景，请从判断是否用本体开始，一路输出到模型、映射、测试和发布需要建设的全部产物。",
+      "expected_behavior": "应激活 ontology-scenario-delivery，判断输入成熟度并编排完整建设链路。",
+      "notes": "完整交付请求。"
+    },
+    {
+      "id": "should-trigger-02",
+      "type": "should_trigger",
+      "prompt": "Build a traceable scenario-to-ontology delivery package and show all missing inputs.",
+      "expected_behavior": "应激活 ontology-scenario-delivery，输出建设包、缺口和追溯关系。",
+      "notes": "英文完整交付请求。"
+    },
+    {
+      "id": "should-not-trigger-01",
+      "type": "should_not_trigger",
+      "prompt": "这个场景里的智能体适合负责哪些任务？只需要角色和边界分析。",
+      "expected_behavior": "应路由 scenario-agent-role-design。",
+      "notes": "单阶段请求。"
+    },
+    {
+      "id": "should-not-trigger-02",
+      "type": "should_not_trigger",
+      "prompt": "解释一下 OWL 中 Class 和 Individual 的区别。",
+      "expected_behavior": "不应激活任何建设型 Skill。",
+      "notes": "术语问答。"
+    },
+    {
+      "id": "edge-01",
+      "type": "edge_case",
+      "prompt": "我只有一句场景描述，也没有制度、数据字典和样本，先帮我把整套本体生成出来。",
+      "expected_behavior": "可以激活，但只能输出候选框架和资料缺口，不得声称模型可发布。",
+      "notes": "低成熟度输入。"
+    }
+  ],
+  "minimum_pass_rate": 0.8,
+  "notes": "验证完整交付与单阶段 Skill 的路由边界。"
+}

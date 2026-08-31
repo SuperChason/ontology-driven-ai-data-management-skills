@@ -1,0 +1,4 @@
+interface:
+  display_name: "本体概念模型设计"
+  short_description: "把场景语义组织成业务专家可审查的多视图模型"
+  default_prompt: "请使用 $ontology-conceptual-model-design，把已确认的场景语义组织成概念、关系、规则、状态、动作、权限和目标视图，并给出专家评审问题。"

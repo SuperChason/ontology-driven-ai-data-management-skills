@@ -1,0 +1,44 @@
+{
+  "skill": "ontology-conceptual-model-design",
+  "version": "0.3.0",
+  "darwin_compatible": true,
+  "test_cases": [
+    {
+      "id": "should-trigger-01",
+      "type": "should_trigger",
+      "prompt": "语义清单已经确认，请整理成业务专家可以评审的完整概念模型和多种视图。",
+      "expected_behavior": "应输出概念、关系、规则、状态、动作、权限和目标视图。",
+      "notes": "业务概念模型。"
+    },
+    {
+      "id": "should-trigger-02",
+      "type": "should_trigger",
+      "prompt": "Create conceptual ontology views for expert review before formalization.",
+      "expected_behavior": "应激活本 Skill 并做跨视图检查。",
+      "notes": "英文触发。"
+    },
+    {
+      "id": "should-not-trigger-01",
+      "type": "should_not_trigger",
+      "prompt": "请把模型转成TTL、SHACL和SPARQL文件。",
+      "expected_behavior": "应路由 ontology-logical-model-generation。",
+      "notes": "形式化生成。"
+    },
+    {
+      "id": "should-not-trigger-02",
+      "type": "should_not_trigger",
+      "prompt": "这些对象、关系和约束的业务定义还没确定，先帮我定义语义。",
+      "expected_behavior": "应路由 scenario-related-semantic-modeling。",
+      "notes": "语义尚未确认。"
+    },
+    {
+      "id": "edge-01",
+      "type": "edge_case",
+      "prompt": "请把所有继承、组成、状态和权限全部塞进一张图。",
+      "expected_behavior": "应按审查目的拆分视图并保持编号一致。",
+      "notes": "大图边界。"
+    }
+  ],
+  "minimum_pass_rate": 0.8,
+  "notes": "验证概念模型与语义定义、逻辑生成的边界。"
+}

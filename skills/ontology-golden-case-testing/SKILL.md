@@ -4,7 +4,7 @@ description: |
   用于需要验收本体能否回答真实业务问题、本体规则或版本变化后要做回归，用户出现“帮我设计本体测试用例”“怎么做黄金问题集”或 golden cases, ontology regression, test matrix 等信号时调用。不适用于只有形式化语法错误，需要先走模型质量门。
 metadata:
   tags: "testing, golden-cases, test-matrix, regression, validation, enterprise-ai, ontology-driven"
-  related-skills: "ontology-model-multilayer-quality-gate:depends-on, ontology-ai-scenario-fit-and-spike:composes-with"
+  related-skills: "ontology-model-multilayer-quality-gate:depends-on, data-to-ontology-mapping-and-instantiation:depends-on, ontology-ai-scenario-fit-and-spike:composes-with"
 ---
 
 # 本体“黄金用例—测试矩阵—结果回溯”验收
@@ -55,7 +55,7 @@ Skill 激活后按以下顺序执行：
    - 完成标准：矩阵覆盖对象、规则、权限、查询和行动维度。
 
 4. **执行并回溯**
-   - 动作：记录实际输出、路径、版本和差异，把失败归因到数据、语义、查询、Action或用例。
+   - 动作：记录实际输出、模型与映射版本、实例来源、规则路径和差异，把失败归因到数据需求、知识来源、语义、概念模型、逻辑模型、映射、查询、Action或用例。
    - 完成标准：每个失败项有唯一责任和修复建议。
 
 5. **修复与回归**
@@ -64,7 +64,7 @@ Skill 激活后按以下顺序执行：
 
 ### 固定输出
 
-最终结果至少包含：输入与假设、逐步判断、证据与来源、未决项、风险边界、建议动作、完成标准。涉及项目适配时，将方法假设与项目事实分栏表达。
+最终结果至少包含：验收范围、业务专家确认的黄金用例、正常/边界/异常/缺失/冲突/权限矩阵、输入实例、预期路径与结果、实际结果、模型与映射版本、失败归因、回归报告和发布建议。
 
 ## 使用边界
 
@@ -88,11 +88,11 @@ Skill 激活后按以下顺序执行：
 ## 相关 Skills
 
 - `depends-on` → `ontology-model-multilayer-quality-gate`；质量门审查模型本身；本 skill 用真实问题验证业务结果和推理路径。
+- `depends-on` → `data-to-ontology-mapping-and-instantiation`；真实实例和映射版本属于用例输入。
 - `composes-with` → `ontology-ai-scenario-fit-and-spike`；穿刺验证决定技术路线是否可行；黄金用例形成可持续回归资产。
 
 ## 审计信息
 
-- **验证通过**：V1 ✓ / V2 ✓ / V3 ✓
-- **测试通过率**：100%（6/6，独立 sub-agent 盲测；详见 test-results.md）
+- **历史验证**：v0.1.0 路由测试 6/6；v0.3.0 增加实例、映射和全链路归因后需重新执行跨平台行为抽样
 - **首次公开版本**：2026-08-21
 - **来源说明**：方法框架受《本体驱动的 AI 数据管理》启发；仓库不包含原书正文。

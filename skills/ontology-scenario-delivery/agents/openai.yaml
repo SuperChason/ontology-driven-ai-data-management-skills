@@ -1,0 +1,4 @@
+interface:
+  display_name: "场景驱动的本体建设交付"
+  short_description: "从业务场景生成可追溯的本体建设包和落地链路"
+  default_prompt: "请使用 $ontology-scenario-delivery，根据我提供的场景、资料和数据条件，判断当前阶段并生成完整的本体建设包、缺口清单和下一步。"

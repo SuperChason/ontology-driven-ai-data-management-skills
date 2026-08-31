@@ -1,0 +1,4 @@
+interface:
+  display_name: "业务场景完整梳理与范围确认"
+  short_description: "把业务场景梳理成可建模、可开发、可验收的规格"
+  default_prompt: "请使用 $business-scenario-deep-analysis，把这个业务场景的目标、角色、过程、判断、数据、规则、动作、异常和验收完整梳理出来，并确认本体建设范围。"

@@ -1,0 +1,44 @@
+{
+  "skill": "business-scenario-deep-analysis",
+  "version": "0.3.0",
+  "darwin_compatible": true,
+  "test_cases": [
+    {
+      "id": "should-trigger-01",
+      "type": "should_trigger",
+      "prompt": "智能体大致作用已经定了，请把这个业务场景从触发到结果完整详细地梳理一遍。",
+      "expected_behavior": "应输出完整场景规格并复核建设范围。",
+      "notes": "完整场景梳理。"
+    },
+    {
+      "id": "should-trigger-02",
+      "type": "should_trigger",
+      "prompt": "Create a business scenario specification covering decisions, states, exceptions, systems and acceptance.",
+      "expected_behavior": "应激活本 Skill 并形成可建模规格。",
+      "notes": "英文触发。"
+    },
+    {
+      "id": "should-not-trigger-01",
+      "type": "should_not_trigger",
+      "prompt": "这个场景适合做本体吗？先给我初判。",
+      "expected_behavior": "应路由 ontology-ai-scenario-fit-and-spike。",
+      "notes": "前置适配判断。"
+    },
+    {
+      "id": "should-not-trigger-02",
+      "type": "should_not_trigger",
+      "prompt": "业务、财务、IT 三类数据具体需要哪些？",
+      "expected_behavior": "应路由 scenario-data-requirements-readiness。",
+      "notes": "数据需求专项。"
+    },
+    {
+      "id": "edge-01",
+      "type": "edge_case",
+      "prompt": "只有目标流程设想，没有现状资料，直接给我正式场景验收结论。",
+      "expected_behavior": "应标记假设并要求现状证据和样本，不给正式验收。",
+      "notes": "缺少现状证据。"
+    }
+  ],
+  "minimum_pass_rate": 0.8,
+  "notes": "验证场景深描与适配初判、数据专项的边界。"
+}

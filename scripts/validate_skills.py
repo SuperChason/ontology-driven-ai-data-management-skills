@@ -10,7 +10,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 SKILLS_DIR = ROOT / "skills"
-EXPECTED_COUNT = 16
+EXPECTED_COUNT = 25
 FORBIDDEN_PATTERNS = {
     "absolute user path": re.compile(r"/Users/|[A-Za-z]:\\\\Users\\\\"),
     "project-specific content": re.compile(r"雅江|CYJDRP|中国雅江集团|久其"),

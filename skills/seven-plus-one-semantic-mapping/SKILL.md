@@ -4,7 +4,7 @@ description: |
   用于需要把业务描述映射为本体语义、要检查Agent知识、规则、权限和动作是否完整，用户出现“按7+1映射一下”“这个场景缺哪些语义”或 7+1 semantic mapping, ontology schema, action semantics 等信号时调用。不适用于输入知识仍处于自由讨论、没有来源和责任人。
 metadata:
   tags: "semantic-framework, W3C, reasoning-model, permission, evaluation, enterprise-ai, ontology-driven"
-  related-skills: "fact-reason-action-business-loop:composes-with"
+  related-skills: "twenty-nine-sentence-knowledge-extraction:depends-on, scenario-related-semantic-modeling:composes-with, fact-reason-action-business-loop:composes-with"
 ---
 
 # 用“7+1”规范映射业务语义
@@ -17,6 +17,8 @@ metadata:
 - 映射时同时保留自然语言、形式表达、来源、版本和责任人。
 - 任何缺失项都要显式标记，尤其是权限、Action前置条件和评估规则。
 - 结果是一张可审查、可测试、可进入运行时的语义映射表。
+
+需要完整维度、工程产物和技术选择时读取 [7+1 语义维度](references/semantic-dimensions.md)。
 
 ## 触发场景
 
@@ -51,7 +53,7 @@ Skill 激活后按以下顺序执行：
    - 完成标准：每条业务知识有唯一主类别，跨类别引用清晰。
 
 3. **补目标与评估**
-   - 动作：定义Agent目标、成功指标、判定依据、质量阈值和责任主体。
+   - 动作：定义场景业务目标、Agent任务目标、动作结果、完成条件、评价口径和责任主体。
    - 完成标准：目标能够通过数据或有权角色验收。
 
 4. **检查闭环**
@@ -65,7 +67,7 @@ Skill 激活后按以下顺序执行：
 
 ### 固定输出
 
-最终结果至少包含：输入与假设、逐步判断、证据与来源、未决项、风险边界、建议动作、完成标准。涉及项目适配时，将方法假设与项目事实分栏表达。
+最终结果至少包含：七类语义和一类目标评价的条目、业务表达、形式化建议、来源、版本、确认状态、责任人、对应Agent任务、测试问题、缺口和阻断项。
 
 ## 使用边界
 
@@ -89,11 +91,11 @@ Skill 激活后按以下顺序执行：
 
 ## 相关 Skills
 
-- `composes-with` → `fact-reason-action-business-loop`；事实事理行动提供三层业务骨架；7+1细化到标准、权限、查询和目标评估。
+- `depends-on` → `twenty-nine-sentence-knowledge-extraction`；先形成有来源的建模语句。
+- `composes-with` → `scenario-related-semantic-modeling` 与 `fact-reason-action-business-loop`；7+1用于完整性检查和形式化建议。
 
 ## 审计信息
 
-- **验证通过**：V1 ✓ / V2 ✓ / V3 ✓
-- **测试通过率**：100%（6/6，独立 sub-agent 盲测；详见 test-results.md）
+- **历史验证**：v0.1.0 路由测试 6/6；v0.3.0 更新语义维度和技术选择后需重新执行跨平台行为抽样
 - **首次公开版本**：2026-08-21
 - **来源说明**：方法框架受《本体驱动的 AI 数据管理》启发；仓库不包含原书正文。

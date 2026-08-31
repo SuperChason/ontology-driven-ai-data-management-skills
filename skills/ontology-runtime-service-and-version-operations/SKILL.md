@@ -4,7 +4,7 @@ description: |
   用于本体已建成，需要以服务方式供多个Agent调用、业务规则存在多版本并行和灰度发布，用户出现“怎么做本体即服务”“本体版本如何灰度和回滚”或 ontology as a service, semantic versioning, runtime governance 等信号时调用。不适用于本体仍处于草稿或没有通过质量与用例验收。
 metadata:
   tags: "ontology-as-a-service, runtime, versioning, access-control, sub-ontology, enterprise-ai, ontology-driven"
-  related-skills: "seven-plus-one-semantic-mapping:depends-on, intent-driven-minimal-ontology-loading:composes-with, action-contract-execution-feedback-loop:composes-with"
+  related-skills: "ontology-model-multilayer-quality-gate:depends-on, ontology-golden-case-testing:depends-on, intent-driven-minimal-ontology-loading:composes-with, action-contract-execution-feedback-loop:composes-with"
 ---
 
 # 本体运行时服务与版本运营
@@ -86,13 +86,12 @@ Skill 激活后按以下顺序执行：
 
 ## 相关 Skills
 
-- `depends-on` → `seven-plus-one-semantic-mapping`。
+- `depends-on` → `ontology-model-multilayer-quality-gate` 与 `ontology-golden-case-testing`；技术和业务验证通过后才登记生产版本。
 - `composes-with` → `intent-driven-minimal-ontology-loading`；本 skill 提供可版本化的运行时资源；最小加载 skill 决定每次任务取哪些资源。
 - `composes-with` → `action-contract-execution-feedback-loop`。
 
 ## 审计信息
 
-- **验证通过**：V1 ✓ / V2 ✓ / V3 ✓
-- **测试通过率**：100%（6/6，独立 sub-agent 盲测；详见 test-results.md）
+- **历史验证**：v0.1.0 路由测试 6/6；v0.3.0 更新生产准入依赖后需重新执行跨平台行为抽样
 - **首次公开版本**：2026-08-21
 - **来源说明**：方法框架受《本体驱动的 AI 数据管理》启发；仓库不包含原书正文。
