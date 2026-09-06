@@ -1,6 +1,6 @@
 {
   "skill": "data-to-ontology-mapping-and-instantiation",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "darwin_compatible": true,
   "test_cases": [
     {
@@ -37,6 +37,13 @@
       "prompt": "有一批来源不明的数据，先生成生产本体实例再说。",
       "expected_behavior": "应阻止生产实例生成并要求来源、权限和语义确认。",
       "notes": "来源缺失。"
+    },
+    {
+      "id": "candidate-delivery-01",
+      "type": "edge_case",
+      "prompt": "用这份候选逻辑模型和明确标为合成的数据生成映射与实例示例。",
+      "expected_behavior": "生成与真实实例隔离的候选映射和合成实例，保留来源、状态与版本，不冒充源系统记录。",
+      "notes": "v0.4.1 候选交付边界；未执行独立模型盲测。"
     }
   ],
   "minimum_pass_rate": 0.8,

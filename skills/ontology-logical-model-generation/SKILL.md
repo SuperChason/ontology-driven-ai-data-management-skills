@@ -1,7 +1,7 @@
 ---
 name: ontology-logical-model-generation
 description: |
-  用于概念模型和业务语义已经确认，需要生成机器可处理的类、属性、关系、词汇、约束、查询和动作接口，用户出现“生成逻辑本体模型”“把概念模型转成RDF OWL SHACL”或 logical ontology generation, TTL, SHACL shapes 等信号时调用。不适用于业务语义尚未确认或只需要审查现有模型质量。
+  用于已有概念模型或可明确列出假设的业务语义，需要生成机器可处理的类、属性、关系、词汇、约束、查询和动作接口，用户出现“生成逻辑本体模型”“把概念模型转成RDF OWL SHACL”或 logical ontology generation, TTL, SHACL shapes 等信号时调用。不适用于只需澄清业务语义或审查现有模型质量；未确认输入可生成候选逻辑模型。
 metadata:
   tags: "logical-ontology, rdf, owl, skos, shacl, sparql, formalization, enterprise-ai, ontology-driven"
   related-skills: "ontology-conceptual-model-design:depends-on, data-to-ontology-mapping-and-instantiation:feeds-into, ontology-model-multilayer-quality-gate:feeds-into"
@@ -11,11 +11,11 @@ metadata:
 
 ## 方法骨架
 
-- 把已确认的概念模型形式化为机器可解析的类、属性、关系、词汇、约束、规则接口和查询模板。
+- 把概念模型按已确认或候选状态形式化为机器可解析的类、属性、关系、词汇、约束、规则接口和查询模板。
 - 先选择满足场景需求的最小技术组合；RDF/OWL/SKOS/SHACL/SPARQL按实际任务使用，流程、规则和权限可映射到企业现有引擎。
 - 业务语义编号和来源必须保留在逻辑元素元数据中，防止形式模型失去业务证据。
 - 候选语义与生产语义分模块或分状态发布，禁止在生成过程中把未确认内容自动升级。
-- 逻辑模型生成后进入独立技术与业务质量门。
+- 按交付用途执行技术自检；正式使用前进入相应技术与业务质量门。
 
 需要形式化映射规则时读取 [逻辑模型契约](references/logical-model-contract.md)。
 
@@ -60,10 +60,10 @@ metadata:
 
 ## 使用边界
 
-- 业务语义来源不明、冲突未裁决或概念模型未确认时，保持草稿并返回前置阶段。
+- 业务语义来源不明、冲突未裁决或概念模型未确认时，隔离受影响元素，列出假设或冲突分支，继续可完成的草稿生成和技术验证；不赋予其生产效力。
 - SWRL、OWL-S、ODRL、BPMN 等根据目标平台选择，不设为所有场景必交格式。
 - SHACL 用于数据图约束，规则引擎、流程引擎和 IAM 继续承担各自运行职责。
-- 自检只能发现可解析和显性结构问题，独立质量审核及黄金用例仍然必需。
+- 自检结果只支持其检查范围；生产准入仍需项目规定的独立质量审核和真实业务用例，候选交付无需等待这些外部环节。
 
 ## 相关 Skills
 

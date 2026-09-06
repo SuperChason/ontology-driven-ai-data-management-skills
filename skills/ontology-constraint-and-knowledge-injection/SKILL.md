@@ -1,7 +1,7 @@
 ---
 name: ontology-constraint-and-knowledge-injection
 description: |
-  用于要决定本体知识写进Prompt、走RAG还是微调、规则型任务需要提高可解释性和一致性，用户出现“Prompt RAG 微调怎么选”“本体怎么注入大模型”或 knowledge injection, prompt vs RAG vs fine-tuning, ontology constraint 等信号时调用。不适用于还没有定义要加载的最小知识范围。
+  用于要决定本体知识写进Prompt、走RAG还是微调、规则型任务需要提高可解释性和一致性，用户出现“Prompt RAG 微调怎么选”“本体怎么注入大模型”或 knowledge injection, prompt vs RAG vs fine-tuning, ontology constraint 等信号时调用。知识范围未定时先从当前任务提炼候选最小范围，再比较注入路径。
 metadata:
   tags: "embedding, prompt, fine-tuning, synthetic-data, decision-framework, enterprise-ai, ontology-driven"
   related-skills: "intent-driven-minimal-ontology-loading:depends-on"
@@ -40,7 +40,7 @@ metadata:
 
 ## 执行步骤
 
-Skill 激活后按以下顺序执行：
+按当前任务选择必要步骤；已有可靠成果直接复用：
 
 1. **刻画任务**
    - 动作：评估风险、问题清晰度、知识规模、稳定性、时效、频次、延迟和可解释要求。

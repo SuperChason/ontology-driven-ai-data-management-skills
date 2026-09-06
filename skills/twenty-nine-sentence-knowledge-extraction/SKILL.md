@@ -1,7 +1,7 @@
 ---
 name: twenty-nine-sentence-knowledge-extraction
 description: |
-  用于要从制度和业务资料提取本体知识、专家说得很散，需要结构化访谈，用户出现“怎么访谈业务专家”“用29句话提取知识”或 knowledge elicitation, expert interview, 29 sentences 等信号时调用。不适用于资料来源不明且没有业务专家可确认。
+  用于要从制度和业务资料提取本体知识、专家说得很散，需要结构化访谈，用户出现“怎么访谈业务专家”“用29句话提取知识”或 knowledge elicitation, expert interview, 29 sentences 等信号时调用。资料来源或专家尚缺时可形成访谈提纲与候选知识，不能声明为已确认事实。
 metadata:
   tags: "knowledge-elicitation, interview, 29-sentences, business-expert, preprocessing, enterprise-ai, ontology-driven"
   related-skills: "scenario-related-knowledge-structure:depends-on, scenario-related-semantic-modeling:feeds-into, seven-plus-one-semantic-mapping:feeds-into"
@@ -42,7 +42,7 @@ metadata:
 
 ## 执行步骤
 
-Skill 激活后按以下顺序执行：
+按当前任务选择必要步骤；已有可靠成果直接复用：
 
 1. **盘点来源**
    - 动作：列出制度、流程、表单、数据字典、接口、案例和专家，并标记权威级别与版本。
@@ -80,7 +80,7 @@ Skill 激活后按以下顺序执行：
 
 ### 不要在以下情况使用
 
-- 资料来源不明且没有业务专家可确认
+- 把来源不明且未经业务确认的提取结果作为正式知识；可继续设计访谈和整理候选条目
 - 用户只需要普通会议纪要或文档摘要
 - 已经存在经过验证的结构化语义模型，仅需运行时调用
 

@@ -1,7 +1,7 @@
 ---
 name: ontology-ai-application-pattern-selection
 description: |
-  用于场景已确认适合本体，需要选择应用架构、问答、审核、协同、决策和PDCA方案混在一起，用户出现“这个场景属于哪种应用模式”“六类模式怎么选”或 application pattern, ontology AI patterns, workflow vs PDCA 等信号时调用。不适用于还没有证明场景需要本体。
+  用于场景已确认适合本体，需要选择应用架构、问答、审核、协同、决策和PDCA方案混在一起，用户出现“这个场景属于哪种应用模式”“六类模式怎么选”或 application pattern, ontology AI patterns, workflow vs PDCA 等信号时调用。适配证据不足时可比较候选模式与轻量替代方案，不据此启动正式建设。
 metadata:
   tags: "application-patterns, workflow, autonomous-operations, decision, PDCA, enterprise-ai, ontology-driven"
   related-skills: "ontology-ai-scenario-fit-and-spike:depends-on, risk-based-agent-action-modes:composes-with"
@@ -40,12 +40,12 @@ metadata:
 
 ## 执行步骤
 
-Skill 激活后按以下顺序执行：
+按当前任务选择必要步骤；已有可靠成果直接复用：
 
 1. **确认适配结论**
    - 动作：读取场景适配与穿刺证据，确认本体必要性和业务目标。
-   - 完成标准：场景已通过继续决策，未通过则停止。
-   - 判停条件：适配未通过时返回场景评估。
+   - 完成标准：明确适配证据和状态；未通过时交付轻量替代方案或候选比较，停止正式本体建设。
+   - 判停条件：适配未通过时限制建设结论，补足必要评估；不阻止有明确假设的候选模式比较。
 
 2. **识别主痛点**
    - 动作：判断主要矛盾属于流程、运营、决策、跨域协同、知识推理或持续统筹。

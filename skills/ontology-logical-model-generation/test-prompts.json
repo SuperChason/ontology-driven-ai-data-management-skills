@@ -1,6 +1,6 @@
 {
   "skill": "ontology-logical-model-generation",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "darwin_compatible": true,
   "test_cases": [
     {
@@ -37,6 +37,13 @@
       "prompt": "资料里有几条未经专家确认的规则，也一并写成生产约束吧。",
       "expected_behavior": "应隔离为候选或退回确认，不升级为生产约束。",
       "notes": "未确认规则。"
+    },
+    {
+      "id": "candidate-delivery-01",
+      "type": "edge_case",
+      "prompt": "概念模型尚待专家确认，先按列明的假设生成候选 TTL 和 SHACL，不部署。",
+      "expected_behavior": "生成隔离的候选逻辑模型并完成可执行自检；保留假设和来源，不等待专家确认才开始，也不声明生产可用。",
+      "notes": "v0.4.1 候选交付边界；未执行独立模型盲测。"
     }
   ],
   "minimum_pass_rate": 0.8,

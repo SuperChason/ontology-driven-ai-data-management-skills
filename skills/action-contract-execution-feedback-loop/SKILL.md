@@ -1,7 +1,7 @@
 ---
 name: action-contract-execution-feedback-loop
 description: |
-  用于需要把一个业务动作封装成Agent可调用工具、要设计动作执行前校验、重试和降级，用户出现“帮我定义Action契约”“这个动作失败后怎么办”或 action contract, pre-check, retry and fallback 等信号时调用。不适用于仍未决定动作应自动、人工还是协同控制。
+  用于需要把一个业务动作封装成Agent可调用工具、要设计动作执行前校验、重试和降级，用户出现“帮我定义Action契约”“这个动作失败后怎么办”或 action contract, pre-check, retry and fallback 等信号时调用。控制模式未定时可生成候选契约及模式选项，实际执行前落实授权与控制条件。
 metadata:
   tags: "action, pre-check, feedback, retry, reliable-autonomy, enterprise-ai, ontology-driven"
   related-skills: "risk-based-agent-action-modes:depends-on, fact-reason-action-business-loop:composes-with"
@@ -40,7 +40,7 @@ metadata:
 
 ## 执行步骤
 
-Skill 激活后按以下顺序执行：
+按当前任务选择必要步骤；已有可靠成果直接复用：
 
 1. **定义动作身份**
    - 动作：写清动作名称、业务目的、目标系统、责任主体、版本和幂等键。

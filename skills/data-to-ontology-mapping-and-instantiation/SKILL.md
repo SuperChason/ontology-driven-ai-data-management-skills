@@ -1,7 +1,7 @@
 ---
 name: data-to-ontology-mapping-and-instantiation
 description: |
-  用于逻辑本体和数据语义已经确认，需要说明数据记录如何对应本体类、字段如何对应属性、关联如何对应对象关系，并生成可追溯实例，用户出现“把数据映射到本体类和属性”“生成本体实例”或 data-to-ontology mapping, ontology instantiation 等信号时调用。不适用于首次寻找真实系统中的表、字段和接口。
+  用于已有逻辑本体和数据语义（包括明确隔离的候选版本），需要说明数据记录如何对应本体类、字段如何对应属性、关联如何对应对象关系，并生成可追溯实例，用户出现“把数据映射到本体类和属性”“生成本体实例”或 data-to-ontology mapping, ontology instantiation 等信号时调用。不适用于首次寻找真实系统中的表、字段和接口。
 metadata:
   tags: "data-ontology-mapping, class-mapping, property-mapping, entity-identity, instance-generation, provenance, enterprise-ai, ontology-driven"
   related-skills: "scenario-data-requirements-readiness:depends-on, scenario-related-semantic-modeling:depends-on, ontology-logical-model-generation:depends-on, ontology-model-multilayer-quality-gate:feeds-into"

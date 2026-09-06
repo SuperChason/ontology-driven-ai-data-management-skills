@@ -1,6 +1,6 @@
 {
   "skill": "twenty-nine-sentence-knowledge-extraction",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "darwin_compatible": true,
   "test_cases": [
     {
@@ -44,6 +44,13 @@
       "prompt": "当前情况是：用户只需要普通会议纪要或文档摘要。我还能直接用这个方法吗？",
       "expected_behavior": "不得直接执行 twenty-nine-sentence-knowledge-extraction 的完整流程；可激活该Skill做边界判定，也可选择更合适的兄弟Skill或none，但必须指出阻断条件和下一步。",
       "notes": "边界：用户只需要普通会议纪要或文档摘要。"
+    },
+    {
+      "id": "candidate-delivery-01",
+      "type": "edge_case",
+      "prompt": "业务专家暂时不在，请先根据这些材料整理访谈提纲与候选知识。",
+      "expected_behavior": "整理有来源的候选条目与访谈提纲，未知项明确标记，不因专家暂缺而停止，不宣称已获业务确认。",
+      "notes": "v0.4.1 候选交付边界；未执行独立模型盲测。"
     }
   ],
   "minimum_pass_rate": 0.8,

@@ -1,6 +1,6 @@
 {
   "skill": "ontology-scenario-delivery",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "darwin_compatible": true,
   "test_cases": [
     {
@@ -35,7 +35,7 @@
       "id": "edge-01",
       "type": "edge_case",
       "prompt": "我只有一句场景描述，也没有制度、数据字典和样本，先帮我把整套本体生成出来。",
-      "expected_behavior": "可以激活，但只能输出候选框架和资料缺口，不得声称模型可发布。",
+      "expected_behavior": "可以激活，按请求生成候选模型、隔离的合成示例和资料缺口；不得声称业务已确认或模型可生产发布。",
       "notes": "低成熟度输入。"
     }
   ],

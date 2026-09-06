@@ -1,7 +1,7 @@
 ---
 name: ontology-runtime-service-and-version-operations
 description: |
-  用于本体已建成，需要以服务方式供多个Agent调用、业务规则存在多版本并行和灰度发布，用户出现“怎么做本体即服务”“本体版本如何灰度和回滚”或 ontology as a service, semantic versioning, runtime governance 等信号时调用。不适用于本体仍处于草稿或没有通过质量与用例验收。
+  用于本体已建成，需要以服务方式供多个Agent调用、业务规则存在多版本并行和灰度发布，用户出现“怎么做本体即服务”“本体版本如何灰度和回滚”或 ontology as a service, semantic versioning, runtime governance 等信号时调用。草稿阶段可设计服务与发布方案；实际生产发布须通过质量与业务用例验收。
 metadata:
   tags: "ontology-as-a-service, runtime, versioning, access-control, sub-ontology, enterprise-ai, ontology-driven"
   related-skills: "ontology-model-multilayer-quality-gate:depends-on, ontology-golden-case-testing:depends-on, intent-driven-minimal-ontology-loading:composes-with, action-contract-execution-feedback-loop:composes-with"
@@ -40,7 +40,7 @@ metadata:
 
 ## 执行步骤
 
-Skill 激活后按以下顺序执行：
+按当前任务选择必要步骤；已有可靠成果直接复用：
 
 1. **建立注册表**
    - 动作：登记本体标识、版本、领域、适用范围、来源、责任人、依赖和状态。
@@ -72,13 +72,13 @@ Skill 激活后按以下顺序执行：
 - 运行监控与调用审计表：命中、延迟、失败、拒绝、规则冲突、业务修正和调用版本
 - 运行反馈、问题分流、变更评审和回归状态台账
 
-只登记通过质量门和业务用例验收的生产版本，每次服务响应都返回资产版本、适用范围和证据信息。
+资产目录可登记明确标为候选的版本；生产版本只登记通过质量门和业务用例验收的内容，每次服务响应都返回资产版本、适用范围和证据信息。
 
 ## 使用边界
 
 ### 不要在以下情况使用
 
-- 本体仍处于草稿或没有通过质量与用例验收
+- 将草稿或未通过质量与用例验收的本体直接发布到生产
 - 直接另建一套身份权限体系
 - 只需要离线交付一次性模型文件
 
